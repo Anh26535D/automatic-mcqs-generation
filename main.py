@@ -27,28 +27,22 @@ def findDependencyWord( strParam, orderNo ):
     if prm :
         return prm[0]
 
-def keyCheck(key, arr, default):
-    if key in arr.keys():
-        return arr[key]
-    else:
-        return default
-
 def checkForAppropriateObjOrSub(srls,j,sType):
     if (sType == 0):
         for i in range(0,5):
-            if (keyCheck('ARG' + str(i), srls[j], "") != ''):
+            if 'ARG' + str(i) in srls[j].keys():
                 return srls[j]['ARG' + str(i)]
     elif (sType == 1):
         foundIndex = 0
         for i in range(0,5):
-            if (keyCheck('ARG' + str(i), srls[j], "") != ''):
+            if 'ARG' + str(i) in srls[j].keys():
                 foundIndex = foundIndex + 1
                 if (foundIndex == 2):
                     return srls[j]['ARG' + str(i)]
     elif (sType == 2):
         foundIndex = 0
         for i in range(0,6):
-            if (keyCheck('ARG' + str(i), srls[j], "") != ''):
+            if 'ARG' + str(i) in srls[j].keys():
                 foundIndex = foundIndex + 1
                 if (foundIndex == 3):
                     return srls[j]['ARG' + str(i)]
@@ -231,8 +225,10 @@ def generate(text):
                 foundSubject = checkForAppropriateObjOrSub(srls,j,0)
                 foundObject = checkForAppropriateObjOrSub(srls,j,1)
                 foundIndirectObject = checkForAppropriateObjOrSub(srls,j,2)
-                if (foundSubject == '') or (foundObject == '')  or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
-                if (foundIndirectObject == '')  or (foundIndirectObject == foundObject)  or (foundIndirectObject == foundSubject): continue
+                if (foundSubject == '') or (foundObject == '')  or (foundSubject == foundObject) or ('V' not in srls[j].keys()):
+                    continue
+                if (foundIndirectObject == '')  or (foundIndirectObject == foundObject)  or (foundIndirectObject == foundSubject): 
+                    continue
                 elif (srls[j]['V'] == dobjVerb[k]) and (foundObject.find(dobjWord[k]) != -1 ) and (foundIndirectObject.find(dativeWord[i]) != -1 ):
                     index =1 -1
                     totalPredicates = srls[j]['V']
@@ -269,10 +265,12 @@ def generate(text):
                     objects.append(foundIndirectObject + " " + foundObject)
                     subjects.append(foundSubject)
                     extraFieldsString = ''
-                    if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                        extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-                    if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                        extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+                    if 'ARGM-LOC' in srls[j].keys():
+                        if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                            extraFieldsString = srls[j]['ARGM-LOC']
+                    if 'ARGM-TMP' in srls[j].keys():
+                        if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                            extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
                     extraFields.append(extraFieldsString)
                     types.append(dativeSubType[i])
       
@@ -280,7 +278,7 @@ def generate(text):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             foundObject = checkForAppropriateObjOrSub(srls,j,1)
-            if (foundSubject == '') or (foundObject == '') or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or (foundObject == '') or (foundSubject == foundObject) or ('V' not in srls[j].keys()): continue
             elif (srls[j]['V'] == dobjVerb[i]) and (foundObject.find(dobjWord[i]) != -1 ) :
                 index =1 -1
                 totalPredicates = srls[j]['V']
@@ -317,10 +315,12 @@ def generate(text):
                 objects.append(foundObject)
                 subjects.append(foundSubject)
                 extraFieldsString = ''
-                if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                    extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-                if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                    extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+                if 'ARGM-LOC' in srls[j].keys():
+                    if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                        extraFieldsString = srls[j]['ARGM-LOC']
+                if 'ARGM-TMP' in srls[j].keys():
+                    if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                        extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
                 extraFields.append(extraFieldsString)
                 types.append(dobjSubType[i])
 
@@ -328,31 +328,31 @@ def generate(text):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             foundObject = checkForAppropriateObjOrSub(srls,j,1)
-            if (foundSubject == '') or (foundObject == '') or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or (foundObject == '') or (foundSubject == foundObject) or ('V' not in srls[j].keys()): continue
             elif (srls[j]['V'] == acompVerb[i]) and (foundObject.find(acompWord[i]) != -1 ) :
                 predicates.append('indicate')
                 objects.append(foundObject)
                 subjects.append(foundSubject)
-                extraFields.append(keyCheck('ARGM-LOC',srls[j],'') + ' ' + keyCheck('ARGM-TMP',srls[j],''))
+                extraFields.append(srls[j].get('ARGM-LOC', '') + ' ' + srls[j].get('ARGM-TMP', ''))
                 types.append(acompSubType[i])
 
     for i in range(0,len(attrWord)):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
-            if (foundSubject == '') or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or ('V' not in srls[j].keys()): continue
             for key, value in srls[j].items():
                 if (srls[j]['V'] == attrVerb[i] and (value.find(attrWord[i]) != -1 ) and key != "V" and value != foundSubject):
                     predicates.append('describe')
                     objects.append(foundSubject)
                     subjects.append('you')
-                    extraFields.append(keyCheck('ARGM-LOC',srls[j],'') + ' ' + keyCheck('ARGM-TMP',srls[j],''))
+                    extraFields.append(srls[j].get('ARGM-LOC', '') + ' ' + srls[j].get('ARGM-TMP', ''))
                     types.append(attrSubType[i])
 
     for i in range(0,len(dateWord)):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             foundObject = checkForAppropriateObjOrSub(srls,j,1)
-            if (foundSubject == '') or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or (foundSubject == foundObject) or ('V' not in srls[j].keys()): continue
             for key, value in srls[j].items():
                 if (value.find(dateWord[i]) != -1 ) and key != "V" and key!= "ARGM-TMP" and value != foundSubject and value != foundObject:
                     index =1 -1
@@ -379,8 +379,9 @@ def generate(text):
                     objects.append(foundObject)
                     subjects.append(foundSubject)
                     extraFieldsString = ''
-                    if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                        extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
+                    if 'ARGM-LOC' in srls[j].keys():
+                        if totalPredicates.find(srls[j]['ARGM-LOC']) == -1:
+                            extraFieldsString = srls[j]['ARGM-LOC']
                     extraFieldsString = extraFieldsString.replace(dateWord[i], "")
                     extraFields.append(extraFieldsString)
                     types.append(dateSubType[i])
@@ -389,7 +390,7 @@ def generate(text):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             foundObject = checkForAppropriateObjOrSub(srls,j,1)
-            if (foundSubject == '') or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or (foundSubject == foundObject) or ('V' not in srls[j].keys()): continue
             for key, value in srls[j].items():
                 if (value.find(whereWord[i]) != -1 ) and key != "V" and key!= "ARGM-LOC" and value != foundSubject:
                     index =1 -1
@@ -434,14 +435,16 @@ def generate(text):
                     objects.append(realObj)
                     subjects.append(foundSubject)
                     extraFieldsString = ''
-                    if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                        extraFieldsString = keyCheck('ARGM-TMP',srls[j],'') 
+                    if 'ARGM-TMP' in srls[j].keys():
+                        if totalPredicates.find(srls[j]['ARGM-TMP']) == -1:
+                            extraFieldsString = srls[j]['ARGM-TMP']
                     extraFields.append(extraFieldsString)
                     types.append(whereSubType[i])
 
     for i in range(0,len(pcompWord)):
         for j in range(0,len(srls)):
-            if(keyCheck('V', srls[j], "") == ''): continue
+            if 'V' not in srls[j].keys(): 
+                continue
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             index =1 -1
             totalPredicates = pcompPreposition[i]
@@ -491,7 +494,7 @@ def generate(text):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             foundObject = checkForAppropriateObjOrSub(srls,j,1)
-            if (foundSubject == '') or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or (foundSubject == foundObject) or ('V' not in srls[j].keys()): continue
             for key, value in srls[j].items():
                 if (value.find(numWord[i]) != -1 ) and key != "V":
                     index =1 -1
@@ -553,10 +556,12 @@ def generate(text):
                     types.append(numSubType[i])
 
                     extraFieldsString = ''
-                    if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                        extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-                    if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                        extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+                    if 'ARGM-LOC' in srls[j].keys():
+                        if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                            extraFieldsString = srls[j]['ARGM-LOC']
+                    if 'ARGM-TMP' in srls[j].keys():
+                        if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                            extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
 
                     if (value == foundObject and foundSubject != ''):
                         objects.append(extraFieldsString)
@@ -570,7 +575,7 @@ def generate(text):
         for j in range(0,len(srls)):
             foundSubject = checkForAppropriateObjOrSub(srls,j,0)
             foundObject = checkForAppropriateObjOrSub(srls,j,1)
-            if (foundSubject == '') or (foundSubject == foundObject) or (keyCheck('V', srls[j], "") == ""): continue
+            if (foundSubject == '') or (foundSubject == foundObject) or ('V' not in srls[j].keys()): continue
             for key, value in srls[j].items():
                 if (value.find(personWord[i]) != -1 ) and key != "V" and value == foundSubject and value != foundObject:
                     index =1 -1
@@ -628,10 +633,12 @@ def generate(text):
                                 except AttributeError:
                                     pass
                     extraFieldsString = ''
-                    if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                        extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-                    if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                        extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'')
+                    if 'ARGM-LOC' in srls[j].keys():
+                        if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                            extraFieldsString = srls[j]['ARGM-LOC']
+                    if 'ARGM-TMP' in srls[j].keys():
+                        if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                            extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
                     if (otherNounsDet == False):
                         extraFields.append(extraFieldsString)
                         types.append(personSubType[i])
@@ -643,7 +650,7 @@ def generate(text):
     for j in range(0,len(srls)):
         foundSubject = checkForAppropriateObjOrSub(srls,j,0)
         foundObject = checkForAppropriateObjOrSub(srls,j,1)
-        if (foundSubject == '') or (keyCheck('V', srls[j], "") == "") or (foundSubject == foundObject): continue
+        if (foundSubject == '') or ('V' not in srls[j].keys()) or (foundSubject == foundObject): continue
         index =1 -1
         totalPredicates = srls[j]['V']
         for k in range(0,len(chunks)):
@@ -676,62 +683,70 @@ def generate(text):
         if totalPredicates[:3] == 'to ':
             totalPredicates= totalPredicates[3:]
 
-        if (keyCheck('ARGM-CAU', srls[j], '') != ""):
+        if 'ARGM-CAU' in srls[j].keys():
             predicates.append(totalPredicates)
             objects.append(foundObject)
             subjects.append(foundSubject)
             extraFieldsString = ''
-            if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-            if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+            if 'ARGM-LOC' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                    extraFieldsString = srls[j]['ARGM-LOC']
+            if 'ARGM-TMP' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                    extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
             extraFields.append(extraFieldsString)
             types.append('why')
-        if (keyCheck('ARGM-PNC', srls[j], '') != ""):
+        if 'ARGM-PNC' in srls[j].keys():
             predicates.append(totalPredicates)
             objects.append(foundObject)
             subjects.append(foundSubject)
             extraFieldsString = ''
-            if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-            if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+            if 'ARGM-LOC' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                    extraFieldsString = srls[j]['ARGM-LOC']
+            if 'ARGM-TMP' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                    extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
             extraFields.append(extraFieldsString)
             types.append('purpose')
-        if (keyCheck('ARGM-MNR', srls[j], '') != ""):
+        if 'ARGM-MNR' in srls[j]:
             predicates.append(totalPredicates)
             objects.append(foundObject)
             subjects.append(foundSubject)
             extraFieldsString = ''
-            if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-            if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+            if 'ARGM-LOC' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                    extraFieldsString = srls[j]['ARGM-LOC']
+            if 'ARGM-TMP' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                    extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
             extraFields.append(extraFieldsString)
             types.append('how')
-        if (keyCheck('ARGM-TMP', srls[j], '') != ""):
+        if 'ARGM-TMP' in srls[j]:
             predicates.append(totalPredicates)
             objects.append(foundObject)
             subjects.append(foundSubject)
             extraFieldsString = ''
-            if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-                extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
+            if 'ARGM-LOC' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                    extraFieldsString = srls[j]['ARGM-LOC']
             extraFields.append(extraFieldsString)
             types.append('DATE')
-        if (keyCheck('ARGM-LOC', srls[j], '') != ""):
+        if 'ARGM-LOC' in srls[j]:
             predicates.append(totalPredicates)
             objects.append(foundObject)
             subjects.append(foundSubject)
             extraFieldsString = ''
-            if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-                extraFieldsString = keyCheck('ARGM-TMP',srls[j],'') 
+            if 'ARGM-TMP' in srls[j].keys():
+                if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                    extraFieldsString = srls[j]['ARGM-TMP']
             extraFields.append(extraFieldsString)
             types.append('LOC')
 
     for j in range(0,len(srls)):
         foundSubject = checkForAppropriateObjOrSub(srls,j,0)
         foundObject = checkForAppropriateObjOrSub(srls,j,1)
-        if (foundSubject == '') or (keyCheck('V', srls[j], "") == "") or (foundSubject == foundObject) or (foundObject == ""): continue
+        if (foundSubject == '') or ('V' not in srls[j].keys()) or (foundSubject == foundObject) or (foundObject == ""): continue
         index =1 -1
         totalPredicates = srls[j]['V']
         for k in range(0,len(chunks)):
@@ -768,10 +783,12 @@ def generate(text):
         objects.append(foundObject)
         subjects.append(foundSubject)
         extraFieldsString = ''
-        if keyCheck('ARGM-LOC',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-LOC',srls[j],'')) == -1):
-            extraFieldsString = keyCheck('ARGM-LOC',srls[j],'')
-        if keyCheck('ARGM-TMP',srls[j],'') != '' and (totalPredicates.find(keyCheck('ARGM-TMP',srls[j],'')) == -1):
-            extraFieldsString = extraFieldsString + ' ' + keyCheck('ARGM-TMP',srls[j],'') 
+        if 'ARGM-LOC' in srls[j].keys():
+            if (totalPredicates.find(srls[j]['ARGM-LOC']) == -1):
+                extraFieldsString = srls[j]['ARGM-LOC']
+        if 'ARGM-TMP' in srls[j].keys():
+            if (totalPredicates.find(srls[j]['ARGM-TMP']) == -1):
+                extraFieldsString = extraFieldsString + ' ' + srls[j]['ARGM-TMP'] 
         extraFields.append(extraFieldsString)
         types.append('direct')
 

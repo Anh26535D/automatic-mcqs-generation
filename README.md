@@ -1,17 +1,17 @@
 ### Installation
-```
-    python3 -m pip venv .venv
+    ```
+        python3 -m pip venv .venv
 
-    ./.venv/Scripts/activate
+        ./.venv/Scripts/activate
 
-    pip install -r requirements.txt
+        pip install -r requirements.txt
 
-    python -m spacy download en_core_web_sm
-```
+        python -m spacy download en_core_web_sm
+    ```
 
 ### Usage
-```
-    ./.venv/Scripts/activate
+    ```
+        ./.venv/Scripts/activate
 
-    python main.py
-```
+        python main.py
+    ```
