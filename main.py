@@ -1,33 +1,39 @@
-from __future__ import generators, print_function, unicode_literals
+import os
 import json
 import re
-import os
+
+import nltk
+from nltk.stem import WordNetLemmatizer
+nltk.download('wordnet')
 
 import spacy
 from allennlp.predictors import Predictor
 
 from practnlptools.tools import Annotator
 
+
 cur_dir = os.getcwd()
 
 IDIOMS_PATH = os.path.join(cur_dir, 'utility_files', 'idioms.json')
 CONTRACTIONS_PATH = os.path.join(cur_dir, 'utility_files', 'contractions.json')
 OBJECT_PRONOUNS_PATH = os.path.join(cur_dir, 'utility_files', 'object_pronouns.txt')
-VERBFORMS_PATH = os.path.join(cur_dir, 'utility_files', 'verb_forms.txt')
 
 SRL_MODEL_PATH = 'https://storage.googleapis.com/allennlp-public-models/structured-prediction-srl-bert.2020.12.15.tar.gz'
 SENNA_PATH = os.path.join(cur_dir, 'practnlptools')
 PNTL_PATH = os.path.join(cur_dir, 'practnlptools')
 
+contractions_dict = json.loads(open(CONTRACTIONS_PATH).read())
+contractions_re = re.compile('(%s)' % '|'.join(contractions_dict.keys()))
+
 def findDependencyWord( strParam, orderNo ):
     if orderNo == 0:
-        prm  = re.compile('\((.*?)-', re.DOTALL |  re.IGNORECASE).findall(strParam)
+        prm  = re.compile('\((.*?)-', re.DOTALL | re.IGNORECASE).findall(strParam)
     elif orderNo == 1:
-        prm  = re.compile(', (.*?)-', re.DOTALL |  re.IGNORECASE).findall(strParam)
+        prm  = re.compile(', (.*?)-', re.DOTALL | re.IGNORECASE).findall(strParam)
     if prm :
         return prm[0]
 
-def checkForAppropriateObjOrSub(srls,j,sType):
+def checkForAppropriateObjOrSub(srls, j, sType):
     if (sType == 0):
         for i in range(0,5):
             if 'ARG' + str(i) in srls[j].keys():
@@ -49,24 +55,10 @@ def checkForAppropriateObjOrSub(srls,j,sType):
 
     return ''
 
-def getBaseFormOfVerb (verb):
-    #return lemma(verb)
-    #todo: pattern no longer working use another library!
-    with open(VERBFORMS_PATH, 'r') as myfile:
-        verb = verb.lower()
-        f = myfile.read()
-        oldString = find_between(f, "", "| "+ verb +" ")
-        oldString = oldString + '|'
-        k = oldString.rfind("<")
-        newString = oldString[:k] + "_" + oldString[k+1:]
-        if find_between(newString, "_ ", " |") == '':
-            if find_between(f, "< "+verb+" "," >") == '':
-                with open('logs.txt', "a") as logFile:
-                    logFile.write('Warning! Base form of verb '+verb+ ' not found\n')
-                    print ('Warning! Base form of verb '+verb+ ' not found')
-            return verb
-
-        return find_between(newString, "_ ", " |")
+def lemmatizeVerb(verb):
+    lemmatizer = WordNetLemmatizer()
+    base_form = lemmatizer.lemmatize(verb, pos='v')
+    return base_form
 
 def find_between( s, first, last ):
     try:
@@ -83,32 +75,29 @@ def getObjectPronun(text):
         if(string != ''): return string
         return text
 
-contractions_dict = json.loads(open(CONTRACTIONS_PATH).read())
-contractions_re = re.compile('(%s)' % '|'.join(contractions_dict.keys()))
-
 def expand_contractions(s, contractions_dict=contractions_dict):
     def replace(match):
         return contractions_dict[match.group(0)]
     return contractions_re.sub(replace, s)
 
-def generate(text):
+def preprocess(text):
     text = re.sub(r'\([^)]*\)', '', text)
     text = ' '.join(text.split())
     text = text.replace(' ,', ',')
-
     p = re.compile(r'(?:(?<!\w)\'((?:.|\n)+?\'?)(?:(?<!s)\'(?!\w)|(?<=s)\'(?!([^\']|\w\'\w)+\'(?!\w))))')
     subst = "\"\g<1>\""
     text = re.sub(p, subst, text)
+    text = expand_contractions(text)
+    return text
+
+def generate(text):
+    text = preprocess(text)
 
     predicates = []
     subjects = []
     objects = []
     extraFields = []
     types = []
-   
-    text = expand_contractions(text)
-    print ("\n")
-    print ("Preprocessed text: "+ text)
     textList = []
     textList.append(text)
     annotator = Annotator(
@@ -126,7 +115,7 @@ def generate(text):
     
     predictor = Predictor.from_path(SRL_MODEL_PATH)
     srlResult = predictor.predict_json({"sentence": text})
-    print(srlResult)
+
     srls = []
     try:
         for i in range(0,len(srlResult['verbs'])):
@@ -173,7 +162,7 @@ def generate(text):
     for word in doc:
         if word.dep_ == 'dobj' or word.dep_ == 'ccomp' or word.dep_ == 'xcomp' or word.dep_ == 'dative' or word.dep_ == 'acomp' or word.dep_ == 'attr' or word.dep_ == "oprd":
             try:
-                baseFormVerb = getBaseFormOfVerb(word.head.text)
+                baseFormVerb = lemmatizeVerb(word.head.text)
                 if word.text.find(idiomJson[baseFormVerb]) != -1: continue
             except KeyError:
                 pass
@@ -802,7 +791,7 @@ def generate(text):
         print ('----------------------------------------')
 
     #Beginning of construction stage    
-    for i in range(0,len(subjects)):
+    for i in range(len(subjects)):
         negativePart = ''
         negativeIndex = -1
         predArr = predicates[i].split(' ')
@@ -846,7 +835,7 @@ def generate(text):
                                 if posTags[k][0] == 'has':
                                     predArrNew.append(posTags[k][0])
                                 else:
-                                    predArrNew.append(getBaseFormOfVerb(posTags[k][0]))
+                                    predArrNew.append(lemmatizeVerb(posTags[k][0]))
                             elif posTags[k][1] == 'VBP':
                                 predArrNew = []
                                 predArrNew.append('do')
@@ -854,7 +843,7 @@ def generate(text):
                             elif posTags[k][1] == 'VBD' or posTags[k][1] == 'VBN':
                                 predArrNew = []
                                 predArrNew.append('did')
-                                predArrNew.append(getBaseFormOfVerb(posTags[k][0]))
+                                predArrNew.append(lemmatizeVerb(posTags[k][0]))
                             else:
                                 predArrNew = []
                                 subjectParts = subjects[i].split(' ')
@@ -885,7 +874,7 @@ def generate(text):
             if numOfVerbs == 0 and len(predArr) == 1 and types[i] != 'attr':
                 mainVerb = predArr[0]
                 qVerb = ''
-                if getBaseFormOfVerb(predArr[0]) == predArr[0]:
+                if lemmatizeVerb(predArr[0]) == predArr[0]:
                     qVerb = 'do'
                 else:
                     qVerb = 'does'
@@ -899,7 +888,7 @@ def generate(text):
         isQuestionMarkExist = False
         verbRemainingPart = ''
         question = ''
-        for k in range (1,len(predArr)):
+        for k in range (1, len(predArr)):
             verbRemainingPart = verbRemainingPart + ' ' + predArr[k]
 
         if types[i] == 'dative':
@@ -941,9 +930,6 @@ def generate(text):
         elif types[i] == 'how':
             question = 'How '+predArr[0] + ' ' + negativePart + ' ' + subjects[i] + verbRemainingPart + ' ' + objects[i]  + ' ' + extraFields[i]
 
-
-        
-        isUpperWord = False
         postProcessTextArr = text.split(' ')
         lowerCasedWord = postProcessTextArr[0][0].lower() + postProcessTextArr[0][1:]
 
@@ -965,8 +951,7 @@ def generate(text):
             if quotatedString[l][-1] == " ": quotatedString[l] = quotatedString[l][:-1]
             formattedQuestion = formattedQuestion.replace(quotatedOrgString[l], quotatedString[l])
 
-        while (formattedQuestion.endswith(' ')):
-            formattedQuestion = formattedQuestion[:-1]
+        formattedQuestion = formattedQuestion.rstrip()
         if formattedQuestion.endswith('.') or formattedQuestion.endswith(','):
             formattedQuestion = formattedQuestion[:-1]
         if formattedQuestion != '':
@@ -989,7 +974,10 @@ def generate(text):
     return foundQuestions
     
 if __name__ == "__main__":
-    text = "In 1980, the son of Vincent J. McMahon, Vincent Kennedy McMahon, founded Titan Sports, Inc. and in 1982 purchased Capitol Wrestling Corporation from his father."
+    text = "Computer science is the study of computation, information, and automation. Computer science spans theoretical disciplines (such as algorithms, theory of computation, and information theory) to applied disciplines (including the design and implementation of hardware and software). Though more often considered an academic discipline, computer science is closely related to computer programming."
     questions = generate(text)
+    print('Original Text:')
+    print(text)
+    print('Generated Questions:')
     for question in questions:
         print(question)
