@@ -9,6 +9,7 @@ class Annotator:
             senna_dir: str = None, 
             stp_dir: str = None,
             dep_model: str ='edu.stanford.nlp.trees.EnglishGrammaticalStructure',
+            verbose: bool = False
         ):
         """
 			Args:
@@ -47,12 +48,13 @@ class Annotator:
         self.default_jar_cli = ['java', '-cp', 'stanford-parser.jar',
                                 self.dep_par_model,
                                 '-treeFile', 'in.parse', '-collapsed']
-        print('*' * 100)
-        print('Setting up the environment for NLP tools')
-        print('Senna path:', self.senna_path)
-        print('Dependency parser:', self.dep_par_path)
-        print('Stanford parser clr', ' '.join(self.default_jar_cli))
-        print('*' * 100)
+        if verbose:
+            print('*' * 100)
+            print('Setting up the environment for NLP tools')
+            print('Senna path:', self.senna_path)
+            print('Dependency parser:', self.dep_par_path)
+            print('Stanford parser clr', ' '.join(self.default_jar_cli))
+            print('*' * 100)
 
     def check_stp_jar(self, path):
         """Check if the stanford parser is present in the given directory"""
@@ -179,7 +181,7 @@ class Annotator:
                     annotation["dep_parse"] = dependencie
         return annotations
 
-    def get_annotaions(self, sentence='', senna_tags=None, dep_parse=True):
+    def get_annotations(self, sentence='', senna_tags=None, dep_parse=True):
         """
         passing the string to senna and performing aboue given nlp process
         and the returning them in a form of `dict()`

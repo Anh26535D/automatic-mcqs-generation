@@ -1,3 +1,6 @@
+### Prerequisites
+1. Python 3.9.13
+
 ### Installation
     ```
         python3 -m pip venv .venv
