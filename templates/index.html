@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question and Distractor Generation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .mcq-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .mcq-answer {
+            font-weight: bold;
+            color: green;
+        }
+
+        .mcq-distractors {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .mcq-distractor {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Question Generation</h1>
+        <form id="generate-form">
+            <div class="form-group">
+                <label for="context">Context:</label>
+                <!-- <textarea class="form-control" id="context" name="context" rows="4" required></textarea> -->
+                <textarea class="form-control" id="context" name="context" rows="4" style="height: 200px; overflow-y: auto;" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate</button>
+        </form>
+    </div>
+
+    <div class="container mt-5" id="mcqs-container" style="display: none;">
+        <h2>Generated MCQs:</h2>
+        <ol id="mcqs-list"></ol>
+    </div>
+
+    <script>
+        document.getElementById("generate-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            generateMCQs();
+        });
+
+        function generateMCQs() {
+            var context = document.getElementById("context").value;
+            fetch("/generate_mcq", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ context: context })
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayMCQs(data.mcqs);
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function displayMCQs(mcqs) {
+            var mcqsList = document.getElementById("mcqs-list");
+            mcqsList.innerHTML = "";
+
+            mcqs.forEach(function(mcq, index) {
+                var mcqItem = document.createElement("li");
+                mcqItem.classList.add("mcq-item");
+
+                var mcqText = document.createElement("div");
+                mcqText.textContent = mcq.question;
+                mcqItem.appendChild(mcqText);
+
+                var mcqAnswer = document.createElement("div");
+                mcqAnswer.classList.add("mcq-answer");
+                mcqAnswer.textContent = String.fromCharCode(65) + ". " + mcq.answer;
+                mcqItem.appendChild(mcqAnswer);
+
+                if (mcq.distractors.length > 0) {
+                    var distractorsList = document.createElement("ul");
+                    distractorsList.classList.add("mcq-distractors");
+                    mcq.distractors.forEach(function(distractor, i) {
+                        var distractorItem = document.createElement("li");
+                        distractorItem.classList.add("mcq-distractor");
+                        distractorItem.textContent = String.fromCharCode(65 + i + 1) + ". " + distractor;
+                        distractorsList.appendChild(distractorItem);
+                    });
+                    mcqItem.appendChild(distractorsList);
+                }
+
+                mcqsList.appendChild(mcqItem);
+            });
+
+            document.getElementById("mcqs-container").style.display = "block"; // Show the MCQs container
+        }
+    </script>
+</body>
+</html>

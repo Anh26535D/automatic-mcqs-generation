@@ -1,0 +1,5 @@
+allennlp==2.10.1
+scikit-learn==1.4.2
+allennlp-models==2.10.1
+fastcoref==2.1.6
+flask==3.0.3

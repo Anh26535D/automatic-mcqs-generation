@@ -1,0 +1,58 @@
+Context: They cut down the forest to make roads. They made more than a hundred airports. The Yanomami people lost land and food. Many died because new diseases came to the forest with the strangers.
+Number of QA pairs: 14
+========> QA-0 =================
+Question:  What did they make?
+Answer: more than a hundred airports
+Type: dobj_question
+========> QA-1 =================
+Question:  What do they make to?
+Answer: roads
+Type: dobj_question
+========> QA-2 =================
+Question:  Do they make to roads?
+Answer: Yes
+Type: direct
+========> QA-3 =================
+Question:  What did they cut down?
+Answer: the forest
+Type: dobj_question
+========> QA-4 =================
+Question:  What lost land and food?
+Answer: The Yanomami people
+Type: nsubj_question
+========> QA-5 =================
+Question:  What cut down the forest?
+Answer: They
+Type: nsubj_question
+========> QA-6 =================
+Question:  Did they cut down the forest?
+Answer: Yes
+Type: direct
+========> QA-7 =================
+Question:  What made more hundred airports?
+Answer: They
+Type: nsubj_question
+========> QA-8 =================
+Question:  How many airports did they make?
+Answer: more than a hundred
+Type: ner_cardinal_question
+========> QA-9 =================
+Question:  What did The Yanomami people lose?
+Answer: land and food
+Type: dobj_question
+========> QA-10 =================
+Question:  Did new diseases come to the forest?
+Answer: Yes
+Type: direct
+========> QA-11 =================
+Question:  Did they make more than a hundred airports?
+Answer: Yes
+Type: direct
+========> QA-12 =================
+Question:  Did The Yanomami people lose land and food?
+Answer: Yes
+Type: direct
+========> QA-13 =================
+Question:  What did the purpose of they cut down the forest?
+Answer: to make roads
+Type: srl_purpose
