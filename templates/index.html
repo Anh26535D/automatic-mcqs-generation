@@ -6,6 +6,13 @@
     <title>Question and Distractor Generation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        .mcq-number {
+            font-weight: bold;
+            background-color: #f0f0f0;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
         .mcq-item {
             margin-bottom: 10px;
             padding: 10px;
@@ -14,13 +21,17 @@
         }
 
         .mcq-answer {
+            margin-left: 10px;
+            margin-top: 5px;
             font-weight: bold;
-            color: green;
+            color: rgb(255, 87, 87);
+            margin-bottom: 5px;
         }
 
         .mcq-distractors {
             list-style-type: none;
             padding-left: 0;
+            margin-left: 10px;
         }
 
         .mcq-distractor {
@@ -35,15 +46,15 @@
             <div class="form-group">
                 <label for="context">Context:</label>
                 <!-- <textarea class="form-control" id="context" name="context" rows="4" required></textarea> -->
-                <textarea class="form-control" id="context" name="context" rows="4" style="height: 200px; overflow-y: auto;" required></textarea>
+                <textarea class="form-control" id="context" name="context" rows="4" style="height: 200px; overflow-y: auto; resize: none;" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Generate</button>
         </form>
     </div>
 
     <div class="container mt-5" id="mcqs-container" style="display: none;">
-        <h2>Generated MCQs:</h2>
-        <ol id="mcqs-list"></ol>
+        <h2 id="mcqs-count"></h2>
+        <ul id="mcqs-list" style="list-style: none; padding-left: 0%;"></ul>
     </div>
 
     <script>
@@ -69,6 +80,17 @@
         }
 
         function displayMCQs(mcqs) {
+            var mcqsCount = document.getElementById("mcqs-count");
+            if (mcqs.length === 0) {
+                mcqsCount.textContent = "No questions are generated";
+                document.getElementById("mcqs-container").style.display = "block";
+                return;
+            } else if (mcqs.length === 1) {
+                mcqsCount.textContent = "1 question is generated";
+            } else {
+                mcqsCount.textContent = `${mcqs.length} questions are generated`;
+            }
+
             var mcqsList = document.getElementById("mcqs-list");
             mcqsList.innerHTML = "";
 
@@ -76,9 +98,10 @@
                 var mcqItem = document.createElement("li");
                 mcqItem.classList.add("mcq-item");
 
-                var mcqText = document.createElement("div");
-                mcqText.textContent = mcq.question;
-                mcqItem.appendChild(mcqText);
+                var mcqNumber = document.createElement("div");
+                mcqNumber.classList.add("mcq-number");
+                mcqNumber.textContent = (index + 1) + ". " + mcq.question;
+                mcqItem.appendChild(mcqNumber);
 
                 var mcqAnswer = document.createElement("div");
                 mcqAnswer.classList.add("mcq-answer");
@@ -100,7 +123,7 @@
                 mcqsList.appendChild(mcqItem);
             });
 
-            document.getElementById("mcqs-container").style.display = "block"; // Show the MCQs container
+            document.getElementById("mcqs-container").style.display = "block";
         }
     </script>
 </body>

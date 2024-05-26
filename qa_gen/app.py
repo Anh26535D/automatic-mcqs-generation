@@ -86,7 +86,7 @@ def generate(text: str, verbose=False):
     qdeconstruct_result = qdeconstructor.deconstruct()
     
     question_constructor = QConstructor(doc)
-    found_questions = question_constructor.constructQuestion(qdeconstruct_result, True)
+    found_questions = question_constructor.constructQuestion(qdeconstruct_result)
     
     return found_questions
 
