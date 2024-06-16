@@ -24,13 +24,22 @@ contractions_re = re.compile('(%s)' % '|'.join(contractions_dict.keys()))
 nlp = spacy.load('en_core_web_sm')
 nlp.add_pipe("fastcoref")
 predictor = Predictor.from_path(SRL_MODEL_PATH)
+
+def clean_text(text: str):
+    text = text.replace('\n', ' ')
+    text = text.replace('\t', ' ')
+    text = text.replace('\r', ' ')
+    text = text.replace('“', '"')
+    text = text.replace('”', '"')
+    text = text.replace("’", "'")
+    return text
     
 def expandContractions(s, contractions_dict=contractions_dict):
     def replace(match):
         return contractions_dict[match.group(0)]
     return contractions_re.sub(replace, s)
 
-def generate(text: str, verbose=False):
+def generate(text: str, enhance_level, verbose=False):
     text = expandContractions(text)
     textList = []
     textList.append(text)
@@ -85,7 +94,7 @@ def generate(text: str, verbose=False):
     qdeconstructor = QDeconstructor(doc, srls)
     qdeconstruct_result = qdeconstructor.deconstruct()
     
-    question_constructor = QConstructor(doc)
+    question_constructor = QConstructor(doc, srls, enhance_level)
     found_questions = question_constructor.constructQuestion(qdeconstruct_result)
     
     return found_questions
@@ -94,10 +103,12 @@ def generate(text: str, verbose=False):
 def generate_qa():
     data = request.json
     text = data.get('context', None)
+    enhance_level = data.get('enhance_level', 2)
     if not text:
         return jsonify({"error": "No text provided"}), 400
     try:
-        qa_pairs = generate(text, verbose=False)
+        context = clean_text(text)
+        qa_pairs = generate(context, enhance_level, verbose=False)
         return jsonify(qa_pairs)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

@@ -1,3 +1,9 @@
+# SQuAD dataset
+SQuAD1.1/
+
+# zip file
+*.zip
+
 # Model checkpoints
 *.ckpt
 

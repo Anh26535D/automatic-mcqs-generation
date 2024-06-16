@@ -75,6 +75,43 @@ class Helper:
         return merged_text.strip()
     
     
+    def checkForAppropriateObjOrSub(srl, occur_no):
+        """
+        Function to find the appropriate object or subject in the SRL dictionary.
+        In common SRLs, the following roles are used: 
+        ARG0 is an agent,
+        ARG1 is a patient,
+        ARG2 is a instrument, beneficiary, or attribute,
+        ARG3 is a starting point, benefactive, or attribute,
+        ARG4 is an ending point, benefactive, or attribute,
+        others ARG are rarely occurred, and usually used for attributes.
+        and ARGM- is a modifier.
+
+        Args:
+        -----
+        srl: dict
+            SRL dictionary
+        occur_no: int
+            The order of the object or subject in the SRL dictionary
+        
+        Returns:
+        --------
+        List[Token]
+        """
+        if (occur_no > 2) or (occur_no < 0):
+            return ''
+        if (occur_no < 2):
+            max_idx = 5
+        else:
+            max_idx = 6
+        for i in range(max_idx):
+            if ('ARG' + str(i) in srl.keys()):
+                occur_no = occur_no - 1
+                if (occur_no == -1):
+                    return srl['ARG' + str(i)]
+        return []
+    
+    
     def find_subject_of_predicate(predicate: spacy.tokens.Token, use_ccomp: bool = False) -> List[spacy.tokens.Token]:
         """
         Find the subject of the predicate
@@ -128,6 +165,24 @@ class Helper:
                     if subjects:
                         return subjects
         return []   
+    
+    
+    def simplify_dependencies(original_tokens: List[spacy.tokens.Token]) -> List[spacy.tokens.Token]:
+        """
+        Simplify dependencies by removing the relative clause
+        """
+        output_dependencies = [tok for tok in original_tokens]
+        def remove_all_children(token):
+            for child in token.children:
+                remove_all_children(child)
+                if child in output_dependencies:
+                    output_dependencies.remove(child)
+                
+        for token in original_tokens:
+            if token.dep_ == "relcl":
+                remove_all_children(token)
+                output_dependencies.remove(token)
+        return output_dependencies
     
     
     def find_full_predicate(
@@ -230,7 +285,7 @@ class Helper:
         include_deps: List[str] = None,
         exclude_deps: List[str] = None,
         use_acl: bool = False,
-        ) -> List[List[spacy.tokens.Token]]:
+        ) -> List[spacy.tokens.Token]:
         """
         Find full form of the direct object
         
@@ -248,7 +303,7 @@ class Helper:
             Use clausal modifier of noun (acl) to find the direct object
         Returns:
         --------
-        List[List[spacy.tokenizer.Token]]
+        List[spacy.tokenizer.Token]
         """        
         dobj_tokens = []
         relevant_deps = {"det", "amod", "compound", "nummod", "poss", "prep", "advmod", "cc", "conj"}
@@ -274,10 +329,69 @@ class Helper:
         add_related_tokens(dobj_word)
 
         sorted_tokens = sorted(dobj_tokens, key=lambda token: token.i)
-        list_of_dobj = [sorted_tokens]
+        return sorted_tokens
     
-        return list_of_dobj
     
+    def find_full_attribute(
+        attribute_word: spacy.tokens.Token, 
+        rel_deps: List[str] = None, 
+        include_deps: List[str] = None,
+        exclude_deps: List[str] = None,
+        use_acl: bool = False,
+        use_relcl: bool = False,
+        ) -> List[spacy.tokens.Token]:
+        """
+        Find full form of the attribute
+        
+        Args:
+        -----
+        attribute_word: spacy.tokens.Token
+            Attribute word
+        rel_deps: List[str]
+            Relevant dependencies to consider (substitute the default dependencies)
+        include_deps: List[str]
+            Include dependencies (append to relevant dependencies)
+        exclude_deps: List[str]
+            Exclude dependencies (remove from relevant dependencies)
+        use_acl: bool
+            Use clausal modifier of noun (acl) to find the attribute
+        use_relcl: bool
+            Use relative clause (relcl) to find the attribute
+        Returns:
+        --------
+        List[spacy.tokenizer.Token]
+        """ 
+        attr_tokens = []
+        relevant_deps = {"det", "amod", "compound", "nummod", "poss", "prep", "advmod", "cc", "conj"}
+        
+        if rel_deps is not None:
+            relevant_deps = set(rel_deps)
+        if include_deps is not None:
+            relevant_deps.update(include_deps)
+        if exclude_deps is not None:
+            relevant_deps = relevant_deps - set(exclude_deps)
+        
+        if use_acl:
+            relevant_deps.add("acl")
+        if use_relcl:
+            relevant_deps.add("relcl")
+        
+        def add_related_tokens(token):
+            if token not in attr_tokens:
+                attr_tokens.append(token)
+                for child in token.children:
+                    if token.dep_ == "poss" and child.dep_ == "case":
+                        attr_tokens.append(child)
+                    elif child.dep_ == "prep" and token == attribute_word:
+                        continue
+                    elif child.dep_ in relevant_deps:
+                        add_related_tokens(child)
+                        
+        add_related_tokens(attribute_word)
+        
+        sorted_tokens = sorted(attr_tokens, key=lambda token: token.i)
+        return sorted_tokens
+        
     
     def find_full_prep(prep_word: spacy.tokens.Token, rel_deps: List[str] = None, is_append: bool = None) -> str:
         """

@@ -39,7 +39,6 @@ class QDeconstructor:
         self.doc = doc
         self.idx_srls = idx_srls
         self._prepare_data(verbose)
-            
     
     def _prepare_data(self, verbose=False):
         self.ners = []
@@ -74,19 +73,7 @@ class QDeconstructor:
                     if v[0] <= token.idx < v[1]:
                         span.append(token)
                 mod_srl[k] = span
-            self.srls.append(mod_srl)
-            
-        self.antecedents = []
-        for cluster in self.doc._.coref_clusters:
-            spans_in_cluster = []
-            for span in cluster:
-                tokens_in_span = []
-                for token in self.doc:
-                    if span[0] <= token.idx < span[1]:
-                        tokens_in_span.append(token)
-                spans_in_cluster.append(tokens_in_span)
-            self.antecedents.append(spans_in_cluster)       
-            
+            self.srls.append(mod_srl)     
             
         self.noun_phrases = []
         for noun_phrase in self.doc.noun_chunks:
@@ -97,103 +84,65 @@ class QDeconstructor:
                 if noun_phrase.start_char <= token.idx < noun_phrase.end_char:
                     span.append(token)
             self.noun_phrases.append(span)
-        
-        
-    def _get_antecedent(self, token: Token) -> Tuple[List[Token], List[Token]]:
-        """
-        Get the antecedent of a token in a coreference cluster. If the token is not in any cluster, return the token itself.
-        Return both the antecedent and the span of the token in the cluster.
-
-        Args:
-        -----
-        token: Token
-            Token to check for antecedent
-            
-        Returns:
-        --------
-        Tuple[List[Token], List[Token]]
-            
-        """
-        for cluster in self.antecedents:
-            for span in cluster:
-                if token in span:
-                    return cluster[0], span
-        return [token], [token]
-
-
-    def _replace_antecedent(self, token: Token, original_tokens: List[Token]) -> List[Token]:
-        antecedent_tokens, span_tokens = self._get_antecedent(token)
-        modified_tokens = []
-        replaced = False
-        for token in original_tokens:
-            if token not in span_tokens:
-                modified_tokens.append(token)
-            elif not replaced:
-                modified_tokens.extend(antecedent_tokens)
-                replaced = True
-        return modified_tokens
-    
-    
-    def checkForAppropriateObjOrSub(self, srl, occur_no):
-        """
-        Function to find the appropriate object or subject in the SRL dictionary.
-        In common SRLs, the following roles are used: 
-        ARG0 is an agent,
-        ARG1 is a patient,
-        ARG2 is a instrument, beneficiary, or attribute,
-        ARG3 is a starting point, benefactive, or attribute,
-        ARG4 is an ending point, benefactive, or attribute,
-        others ARG are rarely occurred, and usually used for attributes.
-        and ARGM- is a modifier.
-
-        Args:
-        -----
-        srl: dict
-            SRL dictionary
-        occur_no: int
-            The order of the object or subject in the SRL dictionary
-        
-        Returns:
-        --------
-        str
-        """
-        if (occur_no > 2) or (occur_no < 0):
-            return ''
-        if (occur_no < 2):
-            max_idx = 5
-        else:
-            max_idx = 6
-        for i in range(max_idx):
-            if ('ARG' + str(i) in srl.keys()):
-                occur_no = occur_no - 1
-                if (occur_no == -1):
-                    return srl['ARG' + str(i)]
-        return ''
     
     
     def deconstruct(self):
         """
         Currently supports the following dependency parse types: 
-            dative, dobj, acomp, attr, pcomp, nsubj, nsubjpass
+            dative, dobj, attr, pcomp, nsubj, nsubjpass
         Curerntly supports the following NER types:
             DATE, LOC, CARDINAL, PERSON (LOC consists of LOC, ORG, GPE, FACILITY)
+        Currently supports the following SRL types:
+            DIRECT, ARGM-LOC, ARGM-TMP, ARGM-CAU, ARGM-PNC (ARGM-PRP), ARGM-MNR
+        Currently supports multiple SRLs required for a question (TODO: Add support for multiple SRLs in a question)
 
         Returns:
         --------
         List[QDeconstructionResult]
         """
         deconstruction_result : List[QDeconstructionResult] = []
+        
+        # TODO: Direct question required multiple SRLs
+        # for srl1 in self.srls:
+        #     for srl2 in self.srls:
+        #         if ('V' not in srl1.keys()) or ('V' not in srl2.keys()):
+        #             continue
+        #         # Check for different sentences
+        #         is_diff_sent = False
+        #         for tok1 in srl1['V']:
+        #             for tok2 in srl2['V']:
+        #                 if tok1.sent.start != tok2.sent.start:
+        #                     is_diff_sent = True
+        #                     break
+        #         if not is_diff_sent:
+        #             continue
+        #         found_subject_tokens1 = Helper.checkForAppropriateObjOrSub(srl1, 0)
+        #         found_object_tokens1 = Helper.checkForAppropriateObjOrSub(srl1, 1)
+        #         found_subject_text1 = Helper.merge_tokens(found_subject_tokens1)
+        #         found_object_text1 = Helper.merge_tokens(found_object_tokens1)
+                
+        #         found_subject_tokens2 = Helper.checkForAppropriateObjOrSub(srl2, 0)
+        #         found_object_tokens2 = Helper.checkForAppropriateObjOrSub(srl2, 1)
+        #         found_subject_text2 = Helper.merge_tokens(found_subject_tokens2)
+        #         found_object_text2 = Helper.merge_tokens(found_object_tokens2)
+                
+        #         if (found_subject_text1 == '') or (found_object_text1 == '') or (found_subject_text1 == found_object_text1):
+        #             continue
+        #         if (found_subject_text2 == '') or (found_object_text2 == '') or (found_subject_text2 == found_object_text2):
+        #             continue
+        #         # Check if the two subject are in cluster
+        #         pass 
+                
+            
 
         # Dependency parsing rules
         for word in self.doc:
-            if word.dep_ == 'dative':
-                deconstruction_result.extend(self._deconstruct_dative(word))
+            if word.dep_ == 'attr':
+                deconstruction_result.extend(self._deconstruct_attr(word))
             elif word.dep_ == 'dobj':
                 deconstruction_result.extend(self._deconstruct_dobj(word))
-            elif word.dep_ == 'acomp':
-                deconstruction_result.extend(self._deconstruct_acomp(word))
-            elif word.dep_ == 'attr':
-                deconstruction_result.extend(self._deconstruct_attr(word))
+            elif word.dep_ == 'dative':
+                deconstruction_result.extend(self._deconstruct_dative(word))
             elif word.dep_ == 'pcomp':
                 deconstruction_result.extend(self._deconstruct_pcomp(word))
             elif word.dep_ == 'nsubj' or word.dep_ == 'nsubjpass':
@@ -215,8 +164,8 @@ class QDeconstructor:
             if ('V' not in srl.keys()):
                 continue
             
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
             
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             found_object_text = Helper.merge_tokens(found_object_tokens)
@@ -243,13 +192,18 @@ class QDeconstructor:
                 # Direct question
                 current_result = QDeconstructionResult()
                 current_result.predicate = full_predicate
-                if is_passive:
+                extra_tokens = []
+                if is_passive and 'ARG0' in srl.keys() and 'ARG1' in srl.keys():
                     current_result.subject = found_object_tokens
                     current_result.object = found_subject_tokens
                 else:
                     current_result.object = found_object_tokens
                     current_result.subject = found_subject_tokens
-                extra_tokens = []
+                    # In case of object is ARG2, ARG3, ARG4, we add them to the extra_field instead of object
+                    if 'ARG1' not in srl.keys():
+                        current_result.object = []
+                        extra_tokens.extend(found_object_tokens)
+
                 if ('ARGM-LOC' in srl.keys()) and (Helper.merge_tokens(srl['ARGM-LOC']) not in full_predicate_text):
                     extra_tokens.extend(srl['ARGM-LOC'])
                 if ('ARGM-TMP' in srl.keys()) and (Helper.merge_tokens(srl['ARGM-TMP']) not in full_predicate_text):
@@ -258,6 +212,7 @@ class QDeconstructor:
                 current_result.type = 'direct'
                 deconstruction_result.append(current_result)
 
+            if found_subject_text and found_subject_text != found_object_text:
                 # Causal question
                 if 'ARGM-CAU' in srl.keys():
                     current_result = QDeconstructionResult()
@@ -273,7 +228,8 @@ class QDeconstructor:
                     current_result.type = 'srl_causal'
                     current_result.key_answer = srl['ARGM-CAU']
                     deconstruction_result.append(current_result)
-                    
+
+            if found_subject_text and found_subject_text != found_object_text:
                 # Purpose question
                 if 'ARGM-PNC' in srl.keys() or 'ARGM-PRP' in srl.keys():
                     current_result = QDeconstructionResult()
@@ -294,7 +250,8 @@ class QDeconstructor:
                     else:
                         current_result.key_answer = []
                     deconstruction_result.append(current_result)
-                    
+            
+            if found_subject_text and found_subject_text != found_object_text:  
                 # Manner question
                 if 'ARGM-MNR' in srl:
                     current_result = QDeconstructionResult()
@@ -311,6 +268,7 @@ class QDeconstructor:
                     current_result.key_answer = srl['ARGM-MNR']
                     deconstruction_result.append(current_result)
                     
+            if found_subject_text and found_subject_text != found_object_text:     
                 # Temporal question
                 if 'ARGM-TMP' in srl:
                     current_result = QDeconstructionResult()
@@ -325,6 +283,7 @@ class QDeconstructor:
                     current_result.key_answer = srl['ARGM-TMP']
                     deconstruction_result.append(current_result)
                     
+            if found_subject_text and found_subject_text != found_object_text:       
                 # Locative question
                 if 'ARGM-LOC' in srl:
                     current_result = QDeconstructionResult()
@@ -357,9 +316,9 @@ class QDeconstructor:
                     if ('V' not in srl.keys()): 
                         continue
                     
-                    found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-                    found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
-                    found_indirect_tokens = self.checkForAppropriateObjOrSub(srl, 2)
+                    found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+                    found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
+                    found_indirect_tokens = Helper.checkForAppropriateObjOrSub(srl, 2)
                     
                     found_subject_text = Helper.merge_tokens(found_subject_tokens)    
                     found_object_text = Helper.merge_tokens(found_object_tokens)
@@ -404,8 +363,8 @@ class QDeconstructor:
         for srl in self.srls:
             if ('V' not in srl.keys()):
                 continue
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             found_object_text = Helper.merge_tokens(found_object_tokens)
 
@@ -436,45 +395,6 @@ class QDeconstructor:
         return deconstruction_result
     
     
-    def _deconstruct_acomp(self, acomp_word: Token) -> List[QDeconstructionResult]:
-        """Deconstructs an adjective complement"""
-        
-        if acomp_word.dep_ != 'acomp':
-            raise ValueError(f"Word {acomp_word} is not of type acomp")
-        deconstruction_result : List[QDeconstructionResult] = []
-        for srl in self.srls:
-            if ('V' not in srl.keys()):
-                continue
-            
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
-            
-            found_subject_text = Helper.merge_tokens(found_subject_tokens)
-            found_object_text = Helper.merge_tokens(found_object_tokens)
-                        
-            if (found_subject_text == '') or (found_object_text == '') or (found_subject_text == found_object_text):
-                continue
-            
-            verb_text = Helper.merge_tokens(srl['V'])
-            if (verb_text == acomp_word.head.text) and (acomp_word.text in found_object_text):
-                current_result = QDeconstructionResult(
-                    predicate=[],
-                    object=found_object_tokens,
-                    subject=found_subject_tokens,
-                    extra_field=[],
-                    type="acomp_question",
-                    key_answer=[acomp_word]
-                )
-                extra_tokens = []
-                if ('ARGM-LOC' in srl.keys()):
-                    extra_tokens.extend(srl['ARGM-LOC'])
-                if ('ARGM-TMP' in srl.keys()):
-                    extra_tokens.extend(srl['ARGM-TMP'])
-                current_result.extra_field = extra_tokens
-                deconstruction_result.append(current_result)
-        return deconstruction_result
-    
-    
     def _deconstruct_attr(self, attr_word: Token) -> List[QDeconstructionResult]:
         """Deconstructs an attribute"""
         
@@ -486,7 +406,7 @@ class QDeconstructor:
             if ('V' not in srl.keys()):
                 continue
             
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             
             if (found_subject_text == ''):
@@ -525,7 +445,7 @@ class QDeconstructor:
         for srl in self.srls:
             if ('V' not in srl.keys()): 
                 continue
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             if len(srl['V']) == 1:
                 full_predicate = Helper.find_full_predicate(srl['V'][0])
@@ -534,21 +454,24 @@ class QDeconstructor:
                     if pred_token.tag_.startswith('VB'):
                         full_predicate = Helper.find_full_predicate(pred_token)
             if (found_subject_text != ''):
-                found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+                found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
                 found_object_text = Helper.merge_tokens(found_object_tokens)
                 for k, v in srl.items():
-                    if (k != 'V') and (pcomp_word.text in Helper.merge_tokens(v)) and (found_subject_text != ''):
+                    if (k != 'V') and (pcomp_word.text in Helper.merge_tokens(v) and not (k in ['ARGM-CAU', 'ARGM-LOC'])) and (found_subject_text != ''):
                         # Remove unnecessary words (before pcomp) in pcomp and add them to the extra_field
-                        pcomp_idx = v.index(pcomp_word)
+                        extra_tokens = []
+                        if pcomp_word in v:
+                            pcomp_idx = v.index(pcomp_word)                              
+                            for i in range(pcomp_idx):
+                                extra_tokens.append(v[i])
+
                         # check passive voice
                         is_passive = False
                         for subj_tok in found_subject_tokens:
                             if subj_tok.dep_ == 'nsubjpass':
                                 is_passive = True
                                 break
-                        extra_tokens = []
-                        for i in range(pcomp_idx):
-                            extra_tokens.append(v[i])
+
                                 
                         current_result = QDeconstructionResult()
                         current_result.predicate = full_predicate
@@ -570,27 +493,48 @@ class QDeconstructor:
         
         if nsubj_word.dep_ not in ['nsubj', 'nsubjpass']:
             raise ValueError(f"Expected nsubj or nsubjpass, got {nsubj_word.text} with type of {nsubj_word.dep_}")
-        
-        deconstruction_result: List[QDeconstructionResult] = []
-        
-        predicate = nsubj_word.head
-        full_predicate = Helper.find_full_predicate(predicate, include_deps=['advmod'])
-        full_subject_tokens = Helper.find_full_subject(nsubj_word)
-        full_subject = self._replace_antecedent(nsubj_word, full_subject_tokens)
-        
-        for token in predicate.children:
-            if token.dep_ == 'dobj':
-                possible_objects = Helper.find_full_direct_object(token)
-                for full_object in possible_objects:
-                    full_object_tokens = self._replace_antecedent(token, full_object)
-                    current_result = QDeconstructionResult()
-                    current_result.predicate = full_predicate
-                    current_result.subject = []
-                    current_result.object = full_object_tokens
-                    current_result.extra_field = []
-                    current_result.type = "nsubj_question"
-                    current_result.key_answer = full_subject
-                    deconstruction_result.append(current_result)
+
+        deconstruction_result : List[QDeconstructionResult] = []
+        for dobj_word in self.doc:
+            if dobj_word.dep_ == 'dobj':
+                if dobj_word.head != nsubj_word.head:
+                    continue
+                for srl in self.srls:
+                    if ('V' not in srl.keys()): 
+                        continue
+                    
+                    found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+                    found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
+                    
+                    found_subject_text = Helper.merge_tokens(found_subject_tokens)    
+                    found_object_text = Helper.merge_tokens(found_object_tokens)
+                    
+                    if (found_subject_text == '') or (found_object_text == ''):
+                        continue
+                    if  (found_subject_text == found_object_text):
+                        continue
+                        
+                    if (dobj_word.head in srl['V']) and (dobj_word.text in found_object_text) and (nsubj_word.text in found_subject_text):
+                        if len(srl['V']) == 1:
+                            full_predicate = Helper.find_full_predicate(srl['V'][0])
+                        else:
+                            for pred_token in srl['V']:
+                                if pred_token.tag_.startswith('VB'):
+                                    full_predicate = Helper.find_full_predicate(pred_token)
+                        full_predicate_text = Helper.merge_tokens(full_predicate)
+                        current_result = QDeconstructionResult()
+                        current_result.predicate = full_predicate
+                        current_result.object = found_object_tokens
+                        current_result.subject = found_subject_tokens
+                        current_result.key_answer = found_subject_tokens
+                        extra_tokens = []
+                        if ('ARGM-LOC' in srl.keys()) and (Helper.merge_tokens(srl['ARGM-LOC']) not in full_predicate_text):
+                            extra_tokens.extend(srl['ARGM-LOC'])
+                        if ('ARGM-TMP' in srl.keys()) and (Helper.merge_tokens(srl['ARGM-TMP']) not in full_predicate_text):
+                            extra_tokens.extend(srl['ARGM-TMP'])
+                        current_result.extra_field = extra_tokens
+                        current_result.type = "nsubj_question"
+                        deconstruction_result.append(current_result)  
         return deconstruction_result
     
     
@@ -603,8 +547,8 @@ class QDeconstructor:
             if ('V' not in srl.keys()):
                 continue
             
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             found_object_text = Helper.merge_tokens(found_object_tokens)
             
@@ -620,7 +564,7 @@ class QDeconstructor:
                             for pred_token in srl['V']:
                                 if pred_token.tag_.startswith('VB'):
                                     full_predicate = Helper.find_full_predicate(pred_token)
-                        full_predicate_text = Helper.merge_tokens(full_predicate)
+
                         current_result = QDeconstructionResult()
                         current_result.predicate = full_predicate
                         current_result.object = found_object_tokens
@@ -643,8 +587,8 @@ class QDeconstructor:
         for srl in self.srls:
             if ('V' not in srl.keys()):
                 continue
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             found_object_text = Helper.merge_tokens(found_object_tokens)
             
@@ -671,6 +615,8 @@ class QDeconstructor:
                             real_object.append(self.doc[l])
                     else:
                         real_object = found_object_tokens
+                    # Remove loc entites in real object
+                    real_object = [tok for tok in real_object if tok not in loc_ner['tokens']]
                     current_result = QDeconstructionResult()
                     current_result.predicate = full_predicate
                     if len(real_object) > 0 and real_object[-1].text == 'the':
@@ -695,8 +641,8 @@ class QDeconstructor:
         for srl in self.srls:
             if ('V' not in srl.keys()):
                 continue
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             found_object_text = Helper.merge_tokens(found_object_tokens)
             
@@ -730,7 +676,7 @@ class QDeconstructor:
                     current_result = QDeconstructionResult()
                     current_result.predicate = full_predicate
                     current_result.subject = first_part
-                    current_result.extra_field = ''
+                    current_result.extra_field = []
                     current_result.key_answer = cardinal_ner['tokens']
                     current_result.type = 'ner_cardinal_question'
                     
@@ -761,8 +707,8 @@ class QDeconstructor:
             if ('V' not in srl.keys()):
                 continue
             
-            found_subject_tokens = self.checkForAppropriateObjOrSub(srl, 0)
-            found_object_tokens = self.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
             found_subject_text = Helper.merge_tokens(found_subject_tokens)
             found_object_text = Helper.merge_tokens(found_object_tokens)
             if (found_subject_text == '') or (found_subject_text == found_object_text): 
@@ -812,8 +758,3 @@ class QDeconstructor:
                             )
                         )
         return deconstruction_result
-    
-    
-    def _deconstruct_srl_direct() -> List[QDeconstructionResult]:
-        """Deconstructs a direct SRL"""
-        pass

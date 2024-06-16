@@ -1,58 +1,362 @@
-Context: They cut down the forest to make roads. They made more than a hundred airports. The Yanomami people lost land and food. Many died because new diseases came to the forest with the strangers.
-Number of QA pairs: 14
+Context:      The Yanomami live along the rivers of the rainforest in the north of Brazil.      They have lived in the rainforest for about 10,000 years and they use more than 2,000 different plants for food and for medicine.      But in 1988, someone found gold in their forest, and suddenly 45,000 people came to the forest and began looking for gold.      They cut down the forest to make roads.      They made more than a hundred airports.      The Yanomami people lost land and food.      Many died because new diseases came to the forest with the strangers.     In 1987, they closed fifteen roads for eight months.      No one cut down any trees during that time. In Panama, the Kuna people saved their forest.      They made a forest park which tourists pay to visit.      The Gavioes people of Brazil use the forest, but they protect it as well.      They find and sell the Brazil nuts which grow on the forest trees.     
+Number of QA pairs: 72
 ========> QA-0 =================
-Question:  What did they make?
-Answer: more than a hundred airports
-Type: dobj_question
-========> QA-1 =================
-Question:  What do they make to?
-Answer: roads
-Type: dobj_question
-========> QA-2 =================
-Question:  Do they make to roads?
-Answer: Yes
-Type: direct
-========> QA-3 =================
-Question:  What did they cut down?
-Answer: the forest
-Type: dobj_question
-========> QA-4 =================
-Question:  What lost land and food?
-Answer: The Yanomami people
-Type: nsubj_question
-========> QA-5 =================
-Question:  What cut down the forest?
-Answer: They
-Type: nsubj_question
-========> QA-6 =================
-Question:  Did they cut down the forest?
-Answer: Yes
-Type: direct
-========> QA-7 =================
-Question:  What made more hundred airports?
-Answer: They
-Type: nsubj_question
-========> QA-8 =================
-Question:  How many airports did they make?
-Answer: more than a hundred
-Type: ner_cardinal_question
-========> QA-9 =================
-Question:  What did The Yanomami people lose?
+Original:  What did the one that live along the rivers of the rainforest in the north of Brazil and in the rainforest for about 10,000 years and use more than 2,000 different plants for food and for medicine lose?
+Question: What was lost by the organism that resided in the rainforest and inhabited the rivers of the Amazon in northern Brazil for approximately 10,000 years, using over 2,000 plants for both food and medicine?
 Answer: land and food
 Type: dobj_question
-========> QA-10 =================
-Question:  Did new diseases come to the forest?
-Answer: Yes
-Type: direct
-========> QA-11 =================
-Question:  Did they make more than a hundred airports?
-Answer: Yes
-Type: direct
-========> QA-12 =================
-Question:  Did The Yanomami people lose land and food?
-Answer: Yes
-Type: direct
-========> QA-13 =================
-Question:  What did the purpose of they cut down the forest?
+========> QA-1 =================
+Original:  What did the one that suddenly came to the forest and suddenly began looking for gold and looking for gold and the forest to make roads and make roads make?
+Question: If someone suddenly went into the forest and searched for gold, what did they do to create roads and make them productive?
+Answer: more than a hundred airports
+Type: dobj_question
+========> QA-2 =================
+Original:  What did the purpose of the one that suddenly came to the forest and suddenly began looking for gold and looking for gold cut down their forest?
+Question: What was the reason behind the person who suddenly went to the forest and searched for gold?
 Answer: to make roads
 Type: srl_purpose
+========> QA-3 =================
+Original:  When the one that live along the rivers of the rainforest in the north of Brazil have lived and use in the rainforest in the north of Brazil?
+Question: Did the people living along the rivers of the rainforest in northern Brazil have access to and utilized the same environment?
+Answer: for about 10,000 years
+Type: srl_temporal
+========> QA-4 =================
+Original:  Where the one that live along the rivers of the rainforest in the north of Brazil have lived and use for about 10,000 years?
+Question: For how long have the people residing along the rivers of the rainforest in northern Brazil been inhabiting and employing for roughly 10,000 years?
+Answer: in the rainforest in the north of Brazil
+Type: srl_locative
+========> QA-5 =================
+Original:  What did the one that suddenly came to the forest and suddenly began looking for gold and looking for gold cut down?
+Question: Which thing was found by the person who suddenly went into the woods and started searching for gold?
+Answer: their forest
+Type: dobj_question
+========> QA-6 =================
+Original:  What do the one that suddenly came to the forest and suddenly began looking for gold and looking for gold make to?
+Question: What is the significance of the person who suddenly went into the woods and started searching for gold?
+Answer: roads
+Type: dobj_question
+========> QA-7 =================
+Original:  Where the one that use the forest and protect it as well find and sell the Brazil nuts which grow on the forest?
+Question: Where do the individuals responsible for protecting and using the forests also procure and market the Brazil nuts that are grown there?
+Answer: the rainforest in the north of Brazil
+Type: ner_loc_question
+========> QA-8 =================
+Original:  Where do the one that use the forest and protect it as well sell the Brazil nuts which grow on the forest?
+Question: Where do forest-based individuals sell the Brazil nuts that are grown in forests?
+Answer: the rainforest in the north of Brazil
+Type: ner_loc_question
+========> QA-9 =================
+Original:  Where the one that use the forest and protect it as well find and sell the nuts which grow on the forest?
+Question: If someone protects and uses forests, where can they also obtain and sell nuts grown in them?
+Answer: Brazil
+Type: ner_loc_question
+========> QA-10 =================
+Original:  Where do the one that use the forest and protect it as well sell the nuts which grow on the forest?
+Question: Where do forest-dependent individuals sell the nuts that grow on their land?
+Answer: Brazil
+Type: ner_loc_question
+========> QA-11 =================
+Original:  The Gavioes people of Brazil find and sell the Brazil nuts which grow on the forest trees?
+Question: What is the source of Brazil nuts that are sold by the Gavioes people in Brazil, which are grown on forest trees?
+Answer: Yes, and The Gavioes people of Brazil protect it as well and use the forest
+Type: direct
+========> QA-12 =================
+Original:  What do the one that live along the rivers of the rainforest in the north of Brazil use?
+Question: What is the livelihood of those who inhabit the rainforest-covered regions in northern Brazil?
+Answer: more than 2,000 different plants
+Type: dobj_question
+========> QA-13 =================
+Original:  Do The Gavioes people of Brazil sell the Brazil nuts which grow on the forest trees?
+Question: Is it common for the Brazilian people to sell the Brazil nuts that are grown on forest trees?
+Answer: Yes, and The Gavioes people of Brazil protect it as well and use the forest
+Type: direct
+========> QA-14 =================
+Original:  How many roads did they close in 1987, they closed fifteen roads for eight months?
+Question: During the eight-month period of 1987, how many roads were closed due to the closure of fifteen roads?
+Answer: fifteen
+Type: ner_cardinal_question
+========> QA-15 =================
+Original:  What closed fifteen roads in 1987, they closed fifteen roads for eight months?
+Question: What caused the closure of fifteen roads in 1987, and why did they remain closed for eight months?
+Answer: they
+Type: nsubj_question
+========> QA-16 =================
+Original:  What did they close in 1987, they closed fifteen roads for eight months?
+Question: In 1987, fifteen roads were closed for eight months. What was the reason behind these closures?
+Answer: fifteen roads
+Type: dobj_question
+========> QA-17 =================
+Original:  Who do live along the rivers of the rainforest in the north of Brazil?
+Question: Which individuals inhabit the rainforest rivers in the north of Brazil?
+Answer: The Yanomami
+Type: ner_person_question
+========> QA-18 =================
+Original:  When they have lived and use in the rainforest in the north of Brazil?
+Question: When did they inhabit and utilize the rainforest in the north of Brazil?
+Answer: for about 10,000 years
+Type: srl_temporal
+========> QA-19 =================
+Original:  Did the Kuna people make a forest park which tourists pay to visit?
+Question: Was there a forest park established by the Kuna people for tourists to visit?
+Answer: Yes, and the Kuna people In Panama saved their forest
+Type: direct
+========> QA-20 =================
+Original:  Where they find and sell the Brazil nuts which grow on the forest?
+Question: Where are the foraged Brazil nuts obtained and sold?
+Answer: the rainforest in the north of Brazil
+Type: ner_loc_question
+========> QA-21 =================
+Original:  Where they find and sell the Brazil nuts which grow on the forest?
+Question: Where are the foraged Brazil nuts obtained and sold?
+Answer: Brazil
+Type: ner_loc_question
+========> QA-22 =================
+Original:  What do the one that use the forest and protect it as well sell?
+Question: What are the products of forest-based organizations and their conservation efforts?
+Answer: the Brazil nuts which grow on the forest trees
+Type: dobj_question
+========> QA-23 =================
+Original:  Where do they sell the Brazil nuts which grow on the forest?
+Question: In which location are forest-grown Brazil nuts available for purchase?
+Answer: the rainforest in the north of Brazil
+Type: ner_loc_question
+========> QA-24 =================
+Original:  What did someone find in The Yanomami their forest in 1988?
+Question: In 1988, what was discovered in The Yanomami their forest?
+Answer: gold
+Type: dobj_question
+========> QA-25 =================
+Original:  Where they find and sell the nuts which grow on the forest?
+Question: Where are the nuts from the forest typically obtained and sold?
+Answer: Brazil
+Type: ner_loc_question
+========> QA-26 =================
+Original:  What did the one that in Panama saved their forest make?
+Question: What was the outcome of the person who rescued their forest in Panama?
+Answer: a forest park which tourists pay to visit
+Type: dobj_question
+========> QA-27 =================
+Original:  When did someone find gold in The Yanomami their forest?
+Question: At what point did someone discover gold in The Yanomami their wilderness?
+Answer: in 1988
+Type: srl_temporal
+========> QA-28 =================
+Original:  Where did the Kuna people save the Kuna people forest?
+Question: What was the location of the Kuna people's forest rescue operation?
+Answer: In Panama
+Type: srl_locative
+========> QA-29 =================
+Original:  What found gold in The Yanomami their forest in 1988?
+Question: In 1988, who was tasked with finding gold in The Yanomami their forested area?
+Answer: someone
+Type: nsubj_question
+========> QA-30 =================
+Original:  Where do they sell the nuts which grow on the forest?
+Question: What is the market for forest-grown nuts?
+Answer: Brazil
+Type: ner_loc_question
+========> QA-31 =================
+Original:  Where they have lived and use for about 10,000 years?
+Question: Where have they been used and lived for approximately 10,000 years?
+Answer: in the rainforest in the north of Brazil
+Type: srl_locative
+========> QA-32 =================
+Original:  Do The Yanomami use more than 2,000 different plants?
+Question: Does The Yanomami make use of more than 2,000 plants?
+Answer: Yes, and The Yanomami live along the rivers of the rainforest in the north of Brazil
+Type: direct
+========> QA-33 =================
+Original:  What made a forest park which tourists pay to visit?
+Question: Why do tourists opt to visit a forest park?
+Answer: the Kuna people
+Type: nsubj_question
+========> QA-34 =================
+Original:  Did 45,000 people make more than a hundred airports?
+Question: Is it true that 45,000 people built more than 100 airports?
+Answer: Yes, and 45,000 people make roads and the forest to make roads
+Type: direct
+========> QA-35 =================
+Original:  What did the purpose of they cut down their forest?
+Question: What was the reason behind their decision to clear their forests?
+Answer: to make roads
+Type: srl_purpose
+========> QA-36 =================
+Original:  How many people came and began to their forest?
+Question: What is the number of individuals who began exploring their forest?
+Answer: 45,000 people
+Type: ner_cardinal_question
+========> QA-37 =================
+Original:  How many different plants do The Yanomami use?
+Question: What is the count of plants in The Yanomami's ecosystem?
+Answer: more than 2,000
+Type: ner_cardinal_question
+========> QA-38 =================
+Original:  What did No one cut down during eight months?
+Question: In the span of eight months, what did No one lose?
+Answer: any trees
+Type: dobj_question
+========> QA-39 =================
+Original:  What cut down any trees during eight months?
+Question: Which trees were cut down in the span of eight months?
+Answer: No one
+Type: nsubj_question
+========> QA-40 =================
+Original:  What saved the Kuna people forest in Panama?
+Question: What was the reason behind the survival of the Kuna people's forest in Panama?
+Answer: the Kuna people
+Type: nsubj_question
+========> QA-41 =================
+Original:  Do the Brazil nuts grow on the forest trees?
+Question: Do forest trees contain Brazil nuts?
+Answer: Yes, and Brazil use the forest
+Type: direct
+========> QA-42 =================
+Original:  How many people did begin looking for gold?
+Question: How many people started searching for gold?
+Answer: 45,000 people
+Type: ner_cardinal_question
+========> QA-43 =================
+Original:  What use more than 2,000 different plants?
+Question: What is the use of over 2,000 plant species?
+Answer: The Yanomami
+Type: nsubj_question
+========> QA-44 =================
+Original:  How many roads for eight months did close?
+Question: Within the span of eight months, how many roads have been closed?
+Answer: fifteen
+Type: ner_cardinal_question
+========> QA-45 =================
+Original:  What do The Gavioes people of Brazil use?
+Question: What are the necessities of The Gavioes people of Brazil?
+Answer: their forest
+Type: dobj_question
+========> QA-46 =================
+Original:  How many airports did 45,000 people make?
+Question: What is the number of airports that 45,000 people occupied?
+Answer: more than a hundred
+Type: ner_cardinal_question
+========> QA-47 =================
+Original:  What did the Kuna people save in Panama?
+Question: What was the survival of the Kuna tribe in Panama?
+Answer: the Kuna people forest
+Type: dobj_question
+========> QA-48 =================
+Original:  Did 45,000 people cut down their forest?
+Question: Is it true that 45,000 people have logged their forests?
+Answer: Yes, and 45,000 people looking for gold and suddenly began looking for gold
+Type: direct
+========> QA-49 =================
+Original:  What made more than a hundred airports?
+Question: What factors contributed to the establishment of over 100 airports?
+Answer: 45,000 people
+Type: nsubj_question
+========> QA-50 =================
+Original:  Did The Yanomami lose land and food???
+Question: Did the Yanomami lose both their land and food?
+Answer: Yes, and The Yanomami use more than 2,000 different plants for food and for medicine and in the rainforest for about 10,000 years
+Type: direct
+========> QA-51 =================
+Original:  Did The Yanomami lose land and food??
+Question: Did the Yanomami people lose both their land and food?
+Answer: Yes, and The Yanomami use more than 2,000 different plants for food and for medicine and in the rainforest for about 10,000 years
+Type: direct
+========> QA-52 =================
+Original:  Where did someone find gold in 1988?
+Question: In 1988, where was the location of gold discovered?
+Answer: in The Yanomami their forest
+Type: srl_locative
+========> QA-53 =================
+Original:  Did The Yanomami lose land and food?
+Question: Did the Yanomami people lose both their land and food?
+Answer: Yes, and The Yanomami use more than 2,000 different plants for food and for medicine and in the rainforest for about 10,000 years
+Type: direct
+========> QA-54 =================
+Original:  When did No one cut down any trees?
+Question: At what point in time did nobody remove trees?
+Answer: during eight months
+Type: srl_temporal
+========> QA-55 =================
+Original:  What did The Yanomami people lose?
+Question: What did the Yanomami tribe endure through to this day?
+Answer: land and food
+Type: dobj_question
+========> QA-56 =================
+Original:  When did they close fifteen roads?
+Question: When were fifteen roads shut down?
+Answer: In 1987, they closed fifteen roads for eight months
+Type: srl_temporal
+========> QA-57 =================
+Original:  Do 45,000 people make to roads?
+Question: Are 45,000 individuals traveling to and from the streets?
+Answer: Yes, and 45,000 people looking for gold and suddenly began looking for gold
+Type: direct
+========> QA-58 =================
+Original:  What cut down their forest?
+Question: What fell on their backwoods?
+Answer: 45,000 people
+Type: nsubj_question
+========> QA-59 =================
+Original:  Who did lose land and food?
+Question: What people lost their land and food?
+Answer: The Yanomami
+Type: ner_person_question
+========> QA-60 =================
+Original:  Where do The Yanomami live?
+Question: What is the residential area of The Yanomami?
+Answer: along the rivers of the rainforest in the north of Brazil
+Type: srl_locative
+========> QA-61 =================
+Original:  What protect their forest?
+Question: What safeguards their forests?
+Answer: The Gavioes people of Brazil
+Type: nsubj_question
+========> QA-62 =================
+Original:  What lost land and food?
+Question: What were the lost lands and food sources?
+Answer: The Yanomami
+Type: nsubj_question
+========> QA-63 =================
+Original:  What did they cut down?
+Question: What were the things they reduced?
+Answer: their forest
+Type: dobj_question
+========> QA-64 =================
+Original:  What use their forest?
+Question: What is the function of their forest?
+Answer: The Gavioes people of Brazil
+Type: nsubj_question
+========> QA-65 =================
+Original:  What do they make to?
+Question: What is their dietary intake?
+Answer: roads
+Type: dobj_question
+========> QA-66 =================
+Original:  What do they protect?
+Question: What is their object of protection?
+Answer: their forest
+Type: dobj_question
+========> QA-67 =================
+Original:  What did they make?
+Question: What was the outcome of their efforts?
+Answer: more than a hundred airports
+Type: dobj_question
+========> QA-68 =================
+Original:  What did they make?
+Question: What was the outcome of their efforts?
+Answer: a forest park which tourists pay to visit
+Type: dobj_question
+========> QA-69 =================
+Original:  What do they sell?
+Question: What is their product line?
+Answer: the Brazil nuts which grow on the forest trees
+Type: dobj_question
+========> QA-70 =================
+Original:  What do they use?
+Question: What is their mode of transportation?
+Answer: more than 2,000 different plants
+Type: dobj_question
+========> QA-71 =================
+Original:  Why did Many die?
+Question: What was the reason behind the death of Many?
+Answer: because new diseases came to their forest with 45,000 people
+Type: srl_causal
