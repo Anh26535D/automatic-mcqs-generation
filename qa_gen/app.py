@@ -25,26 +25,20 @@ nlp = spacy.load('en_core_web_sm')
 nlp.add_pipe("fastcoref")
 predictor = Predictor.from_path(SRL_MODEL_PATH)
 
-def clean_text(text: str):
-    text = text.replace('\n', ' ')
-    text = text.replace('\t', ' ')
-    text = text.replace('\r', ' ')
-    text = text.replace('“', '"')
-    text = text.replace('”', '"')
-    text = text.replace("’", "'")
-    return text
-    
+
 def expandContractions(s, contractions_dict=contractions_dict):
     def replace(match):
         return contractions_dict[match.group(0)]
     return contractions_re.sub(replace, s)
 
-def generate(text: str, enhance_level, verbose=False):
+
+def generate(text: str, enhance_level: int, limit: int, verbose=False):
     text = expandContractions(text)
     textList = []
     textList.append(text)
-
-    doc = nlp(u'' + text, component_cfg={"fastcoref": {'resolve_text': True}})
+    
+    doc = nlp(u''+text, component_cfg={"fastcoref": {'resolve_text': True}})  # See https://github.com/shon-otmazgin/fastcoref
+    
     
     srls = []
     for sent in doc.sents:
@@ -90,28 +84,33 @@ def generate(text: str, enhance_level, verbose=False):
             print('-'*50)
             for key, value in srl.items():
                 print(f'{key}: {text[value[0]:value[1]]}')
-
+                
     qdeconstructor = QDeconstructor(doc, srls)
     qdeconstruct_result = qdeconstructor.deconstruct()
     
     question_constructor = QConstructor(doc, srls, enhance_level)
-    found_questions = question_constructor.constructQuestion(qdeconstruct_result)
+    found_questions = question_constructor.constructQuestion(qdeconstruct_result, 
+                                                             limit=limit, 
+                                                             selection_method='random',
+                                                             type_name='direct',
+                                                             verbose=verbose,)
     
     return found_questions
+
 
 @app.route('/generate_qa', methods=['POST'])
 def generate_qa():
     data = request.json
-    text = data.get('context', None)
+    context = data.get('context', None)
     enhance_level = data.get('enhance_level', 2)
-    if not text:
+    limit = data.get('limit', 100)
+    if not context:
         return jsonify({"error": "No text provided"}), 400
     try:
-        context = clean_text(text)
-        qa_pairs = generate(context, enhance_level, verbose=False)
+        qa_pairs = generate(context, enhance_level, limit, verbose=False)
         return jsonify(qa_pairs)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8001, debug=True)
+    app.run(host="0.0.0.0", port=8001, debug=False)

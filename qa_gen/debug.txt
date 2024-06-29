@@ -1,362 +1,1334 @@
-Context:      The Yanomami live along the rivers of the rainforest in the north of Brazil.      They have lived in the rainforest for about 10,000 years and they use more than 2,000 different plants for food and for medicine.      But in 1988, someone found gold in their forest, and suddenly 45,000 people came to the forest and began looking for gold.      They cut down the forest to make roads.      They made more than a hundred airports.      The Yanomami people lost land and food.      Many died because new diseases came to the forest with the strangers.     In 1987, they closed fifteen roads for eight months.      No one cut down any trees during that time. In Panama, the Kuna people saved their forest.      They made a forest park which tourists pay to visit.      The Gavioes people of Brazil use the forest, but they protect it as well.      They find and sell the Brazil nuts which grow on the forest trees.     
-Number of QA pairs: 72
+Context: The Lobund Institute grew out of pioneering research in germ-free-life which began in 1928. This area of research originated in a question posed by Pasteur as to whether animal life was possible without bacteria. Though others had taken up this idea, their research was short lived and inconclusive. Lobund was the first research organization to answer definitively, that such life is possible and that it can be prolonged through generations. But the objective was not merely to answer Pasteur's question but also to produce the germ free animal as a new tool for biological and medical research. This objective was reached and for years Lobund was a unique center for the study and production of germ free animals and for their use in biological and medical investigations. Today the work has spread to other universities. In the beginning it was under the Department of Biology and a program leading to the master's degree accompanied the research program. In the 1940s Lobund achieved independent status as a purely research organization and in 1950 was raised to the status of an Institute. In 1958 it was brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics.
+Number of QA pairs: 333
 ========> QA-0 =================
-Original:  What did the one that live along the rivers of the rainforest in the north of Brazil and in the rainforest for about 10,000 years and use more than 2,000 different plants for food and for medicine lose?
-Question: What was lost by the organism that resided in the rainforest and inhabited the rivers of the Amazon in northern Brazil for approximately 10,000 years, using over 2,000 plants for both food and medicine?
-Answer: land and food
-Type: dobj_question
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and leading to the master's degree?
+Answer: No, a program [not This area of research] leading to the master's degree.
+Type: direct_with_multiple_srls
 ========> QA-1 =================
-Original:  What did the one that suddenly came to the forest and suddenly began looking for gold and looking for gold and the forest to make roads and make roads make?
-Question: If someone suddenly went into the forest and searched for gold, what did they do to create roads and make them productive?
-Answer: more than a hundred airports
-Type: dobj_question
+Question:  Was The Lobund Institute raised to the status of an Institute and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-2 =================
-Original:  What did the purpose of the one that suddenly came to the forest and suddenly began looking for gold and looking for gold cut down their forest?
-Question: What was the reason behind the person who suddenly went to the forest and searched for gold?
-Answer: to make roads
-Type: srl_purpose
+Question:  When was Lobund raised to the status of an Institute?
+Answer: In the 1940s The Lobund Institute achieved independent status as a purely research organization and in 1950
+Type: srl_temporal
 ========> QA-3 =================
-Original:  When the one that live along the rivers of the rainforest in the north of Brazil have lived and use in the rainforest in the north of Brazil?
-Question: Did the people living along the rivers of the rainforest in northern Brazil have access to and utilized the same environment?
-Answer: for about 10,000 years
-Type: srl_temporal
+Question:  Was The Lobund Institute raised to the status of an Institute, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-4 =================
-Original:  Where the one that live along the rivers of the rainforest in the north of Brazil have lived and use for about 10,000 years?
-Question: For how long have the people residing along the rivers of the rainforest in northern Brazil been inhabiting and employing for roughly 10,000 years?
-Answer: in the rainforest in the north of Brazil
-Type: srl_locative
+Question:  Did The Lobund Institute achieve independent status as a purely research organization in the 1940s?
+Answer: Yes, and The Lobund Institute In the beginning was under the Department of Biology and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations
+Type: direct
 ========> QA-5 =================
-Original:  What did the one that suddenly came to the forest and suddenly began looking for gold and looking for gold cut down?
-Question: Which thing was found by the person who suddenly went into the woods and started searching for gold?
-Answer: their forest
-Type: dobj_question
+Question:  Did a program leading to the master's degree accompany the research program, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not a program leading to the master's degree] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
 ========> QA-6 =================
-Original:  What do the one that suddenly came to the forest and suddenly began looking for gold and looking for gold make to?
-Question: What is the significance of the person who suddenly went into the woods and started searching for gold?
-Answer: roads
-Type: dobj_question
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not the objective] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-7 =================
-Original:  Where the one that use the forest and protect it as well find and sell the Brazil nuts which grow on the forest?
-Question: Where do the individuals responsible for protecting and using the forests also procure and market the Brazil nuts that are grown there?
-Answer: the rainforest in the north of Brazil
-Type: ner_loc_question
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
 ========> QA-8 =================
-Original:  Where do the one that use the forest and protect it as well sell the Brazil nuts which grow on the forest?
-Question: Where do forest-based individuals sell the Brazil nuts that are grown in forests?
-Answer: the rainforest in the north of Brazil
-Type: ner_loc_question
-========> QA-9 =================
-Original:  Where the one that use the forest and protect it as well find and sell the nuts which grow on the forest?
-Question: If someone protects and uses forests, where can they also obtain and sell nuts grown in them?
-Answer: Brazil
-Type: ner_loc_question
-========> QA-10 =================
-Original:  Where do the one that use the forest and protect it as well sell the nuts which grow on the forest?
-Question: Where do forest-dependent individuals sell the nuts that grow on their land?
-Answer: Brazil
-Type: ner_loc_question
-========> QA-11 =================
-Original:  The Gavioes people of Brazil find and sell the Brazil nuts which grow on the forest trees?
-Question: What is the source of Brazil nuts that are sold by the Gavioes people in Brazil, which are grown on forest trees?
-Answer: Yes, and The Gavioes people of Brazil protect it as well and use the forest
-Type: direct
-========> QA-12 =================
-Original:  What do the one that live along the rivers of the rainforest in the north of Brazil use?
-Question: What is the livelihood of those who inhabit the rainforest-covered regions in northern Brazil?
-Answer: more than 2,000 different plants
-Type: dobj_question
-========> QA-13 =================
-Original:  Do The Gavioes people of Brazil sell the Brazil nuts which grow on the forest trees?
-Question: Is it common for the Brazilian people to sell the Brazil nuts that are grown on forest trees?
-Answer: Yes, and The Gavioes people of Brazil protect it as well and use the forest
-Type: direct
-========> QA-14 =================
-Original:  How many roads did they close in 1987, they closed fifteen roads for eight months?
-Question: During the eight-month period of 1987, how many roads were closed due to the closure of fifteen roads?
-Answer: fifteen
-Type: ner_cardinal_question
-========> QA-15 =================
-Original:  What closed fifteen roads in 1987, they closed fifteen roads for eight months?
-Question: What caused the closure of fifteen roads in 1987, and why did they remain closed for eight months?
-Answer: they
+Question:  What accompanied the research program?
+Answer: a program leading to the master's degree
 Type: nsubj_question
+========> QA-9 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-10 =================
+Question:  How was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology in 1958?
+Answer: as integral part of the Department of Biology the Department of Biology, but with The Lobund Institute own program leading to the degree of PhD in Gnotobiotics
+Type: srl_manner
+========> QA-11 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-12 =================
+Question:  Is such life possible, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not such life] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-13 =================
+Question:  Did by Pasteur pose a question, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not by Pasteur] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-14 =================
+Question:  Is such life possible, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not such life] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-15 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization and in the beginning was under the Department of Biology?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-16 =================
-Original:  What did they close in 1987, they closed fifteen roads for eight months?
-Question: In 1987, fifteen roads were closed for eight months. What was the reason behind these closures?
-Answer: fifteen roads
-Type: dobj_question
-========> QA-17 =================
-Original:  Who do live along the rivers of the rainforest in the north of Brazil?
-Question: Which individuals inhabit the rainforest rivers in the north of Brazil?
-Answer: The Yanomami
-Type: ner_person_question
-========> QA-18 =================
-Original:  When they have lived and use in the rainforest in the north of Brazil?
-Question: When did they inhabit and utilize the rainforest in the north of Brazil?
-Answer: for about 10,000 years
-Type: srl_temporal
-========> QA-19 =================
-Original:  Did the Kuna people make a forest park which tourists pay to visit?
-Question: Was there a forest park established by the Kuna people for tourists to visit?
-Answer: Yes, and the Kuna people In Panama saved their forest
+Question:  Did by Pasteur pose a question?
+Answer: Yes
 Type: direct
+========> QA-17 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not the objective] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-18 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-19 =================
+Question:  Was The Lobund Institute under the Department of Biology and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-20 =================
-Original:  Where they find and sell the Brazil nuts which grow on the forest?
-Question: Where are the foraged Brazil nuts obtained and sold?
-Answer: the rainforest in the north of Brazil
-Type: ner_loc_question
+Question:  Is such life possible, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not such life] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
 ========> QA-21 =================
-Original:  Where they find and sell the Brazil nuts which grow on the forest?
-Question: Where are the foraged Brazil nuts obtained and sold?
-Answer: Brazil
-Type: ner_loc_question
+Question:  Was The Lobund Institute under the Department of Biology and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-22 =================
-Original:  What do the one that use the forest and protect it as well sell?
-Question: What are the products of forest-based organizations and their conservation efforts?
-Answer: the Brazil nuts which grow on the forest trees
+Question:  What did the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations achieve in the 1940s?
+Answer: independent status as a purely research organization
 Type: dobj_question
 ========> QA-23 =================
-Original:  Where do they sell the Brazil nuts which grow on the forest?
-Question: In which location are forest-grown Brazil nuts available for purchase?
-Answer: the rainforest in the north of Brazil
-Type: ner_loc_question
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology and raised to the status of an Institute?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-24 =================
-Original:  What did someone find in The Yanomami their forest in 1988?
-Question: In 1988, what was discovered in The Yanomami their forest?
-Answer: gold
-Type: dobj_question
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and can prolonged through generations?
+Answer: No, such life [not The Lobund Institute] can prolonged through generations.
+Type: direct_with_multiple_srls
 ========> QA-25 =================
-Original:  Where they find and sell the nuts which grow on the forest?
-Question: Where are the nuts from the forest typically obtained and sold?
-Answer: Brazil
-Type: ner_loc_question
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not The Lobund Institute] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
 ========> QA-26 =================
-Original:  What did the one that in Panama saved their forest make?
-Question: What was the outcome of the person who rescued their forest in Panama?
-Answer: a forest park which tourists pay to visit
-Type: dobj_question
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and in the 1940s achieved independent status as a purely research organization?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-27 =================
-Original:  When did someone find gold in The Yanomami their forest?
-Question: At what point did someone discover gold in The Yanomami their wilderness?
-Answer: in 1988
-Type: srl_temporal
+Question:  Was others research short lived and inconclusive, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not others research] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
 ========> QA-28 =================
-Original:  Where did the Kuna people save the Kuna people forest?
-Question: What was the location of the Kuna people's forest rescue operation?
-Answer: In Panama
-Type: srl_locative
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not others] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
 ========> QA-29 =================
-Original:  What found gold in The Yanomami their forest in 1988?
-Question: In 1988, who was tasked with finding gold in The Yanomami their forested area?
-Answer: someone
-Type: nsubj_question
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and in 1958 brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-30 =================
-Original:  Where do they sell the nuts which grow on the forest?
-Question: What is the market for forest-grown nuts?
-Answer: Brazil
-Type: ner_loc_question
+Question:  Did by Pasteur pose a question, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not by Pasteur] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
 ========> QA-31 =================
-Original:  Where they have lived and use for about 10,000 years?
-Question: Where have they been used and lived for approximately 10,000 years?
-Answer: in the rainforest in the north of Brazil
-Type: srl_locative
+Question:  Where did This area of research originate in a question posed by Pasteur as to whether animal life was possible without?
+Answer: a question posed by Pasteur as to whether animal life was possible without bacteria
+Type: ner_loc_question
 ========> QA-32 =================
-Original:  Do The Yanomami use more than 2,000 different plants?
-Question: Does The Yanomami make use of more than 2,000 plants?
-Answer: Yes, and The Yanomami live along the rivers of the rainforest in the north of Brazil
-Type: direct
+Question:  Was The Lobund Institute under the Department of Biology, and is possible?
+Answer: No, such life [not The Lobund Institute] is possible.
+Type: direct_with_multiple_srls
 ========> QA-33 =================
-Original:  What made a forest park which tourists pay to visit?
-Question: Why do tourists opt to visit a forest park?
-Answer: the Kuna people
-Type: nsubj_question
+Question:  Was animal life possible, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not animal life] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
 ========> QA-34 =================
-Original:  Did 45,000 people make more than a hundred airports?
-Question: Is it true that 45,000 people built more than 100 airports?
-Answer: Yes, and 45,000 people make roads and the forest to make roads
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations for years?
+Answer: Yes, and The Lobund Institute was the first research organization, that such life is possible and that it can be prolonged through generations and grew out of pioneering research in germ - free - life
 Type: direct
 ========> QA-35 =================
-Original:  What did the purpose of they cut down their forest?
-Question: What was the reason behind their decision to clear their forests?
-Answer: to make roads
-Type: srl_purpose
+Question:  When did Lobund achieve independent status as a purely research organization?
+Answer: In the 1940s
+Type: srl_temporal
 ========> QA-36 =================
-Original:  How many people came and began to their forest?
-Question: What is the number of individuals who began exploring their forest?
-Answer: 45,000 people
-Type: ner_cardinal_question
+Question:  Was others research short lived and inconclusive, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not others research] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
 ========> QA-37 =================
-Original:  How many different plants do The Yanomami use?
-Question: What is the count of plants in The Yanomami's ecosystem?
-Answer: more than 2,000
-Type: ner_cardinal_question
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations and Though others had taken up this idea was short lived and inconclusive?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-38 =================
-Original:  What did No one cut down during eight months?
-Question: In the span of eight months, what did No one lose?
-Answer: any trees
-Type: dobj_question
+Question:  Was others research short lived and inconclusive, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not others research] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
 ========> QA-39 =================
-Original:  What cut down any trees during eight months?
-Question: Which trees were cut down in the span of eight months?
-Answer: No one
-Type: nsubj_question
+Question:  Was animal life possible, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not animal life] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-40 =================
-Original:  What saved the Kuna people forest in Panama?
-Question: What was the reason behind the survival of the Kuna people's forest in Panama?
-Answer: the Kuna people
-Type: nsubj_question
+Question:  Was The Lobund Institute raised to the status of an Institute, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
 ========> QA-41 =================
-Original:  Do the Brazil nuts grow on the forest trees?
-Question: Do forest trees contain Brazil nuts?
-Answer: Yes, and Brazil use the forest
-Type: direct
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and leading to the master's degree?
+Answer: No, a program [not others] leading to the master's degree.
+Type: direct_with_multiple_srls
 ========> QA-42 =================
-Original:  How many people did begin looking for gold?
-Question: How many people started searching for gold?
-Answer: 45,000 people
-Type: ner_cardinal_question
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not others] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
 ========> QA-43 =================
-Original:  What use more than 2,000 different plants?
-Question: What is the use of over 2,000 plant species?
-Answer: The Yanomami
-Type: nsubj_question
+Question:  Did The Lobund Institute achieve independent status as a purely research organization and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-44 =================
-Original:  How many roads for eight months did close?
-Question: Within the span of eight months, how many roads have been closed?
-Answer: fifteen
-Type: ner_cardinal_question
+Question:  Did by Pasteur pose a question, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not by Pasteur] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
 ========> QA-45 =================
-Original:  What do The Gavioes people of Brazil use?
-Question: What are the necessities of The Gavioes people of Brazil?
-Answer: their forest
-Type: dobj_question
+Question:  Where was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations in the beginning?
+Answer: the Department of Biology
+Type: ner_loc_question
 ========> QA-46 =================
-Original:  How many airports did 45,000 people make?
-Question: What is the number of airports that 45,000 people occupied?
-Answer: more than a hundred
-Type: ner_cardinal_question
+Question:  Did The Lobund Institute achieve independent status as a purely research organization and was the first research organization, that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-47 =================
-Original:  What did the Kuna people save in Panama?
-Question: What was the survival of the Kuna tribe in Panama?
-Answer: the Kuna people forest
-Type: dobj_question
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-48 =================
-Original:  Did 45,000 people cut down their forest?
-Question: Is it true that 45,000 people have logged their forests?
-Answer: Yes, and 45,000 people looking for gold and suddenly began looking for gold
-Type: direct
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not the objective] raised to the status of an Institute.
+Type: direct_with_multiple_srls
 ========> QA-49 =================
-Original:  What made more than a hundred airports?
-Question: What factors contributed to the establishment of over 100 airports?
-Answer: 45,000 people
-Type: nsubj_question
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not others] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-50 =================
-Original:  Did The Yanomami lose land and food???
-Question: Did the Yanomami lose both their land and food?
-Answer: Yes, and The Yanomami use more than 2,000 different plants for food and for medicine and in the rainforest for about 10,000 years
-Type: direct
+Question:  Did The Lobund Institute achieve independent status as a purely research organization and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-51 =================
-Original:  Did The Yanomami lose land and food??
-Question: Did the Yanomami people lose both their land and food?
-Answer: Yes, and The Yanomami use more than 2,000 different plants for food and for medicine and in the rainforest for about 10,000 years
-Type: direct
+Question:  such life can be prolonged through generations, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not such life] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
 ========> QA-52 =================
-Original:  Where did someone find gold in 1988?
-Question: In 1988, where was the location of gold discovered?
-Answer: in The Yanomami their forest
-Type: srl_locative
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and can prolonged through generations?
+Answer: No, such life [not the objective] can prolonged through generations.
+Type: direct_with_multiple_srls
 ========> QA-53 =================
-Original:  Did The Yanomami lose land and food?
-Question: Did the Yanomami people lose both their land and food?
-Answer: Yes, and The Yanomami use more than 2,000 different plants for food and for medicine and in the rainforest for about 10,000 years
-Type: direct
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not This area of research] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
 ========> QA-54 =================
-Original:  When did No one cut down any trees?
-Question: At what point in time did nobody remove trees?
-Answer: during eight months
-Type: srl_temporal
-========> QA-55 =================
-Original:  What did The Yanomami people lose?
-Question: What did the Yanomami tribe endure through to this day?
-Answer: land and food
-Type: dobj_question
-========> QA-56 =================
-Original:  When did they close fifteen roads?
-Question: When were fifteen roads shut down?
-Answer: In 1987, they closed fifteen roads for eight months
-Type: srl_temporal
-========> QA-57 =================
-Original:  Do 45,000 people make to roads?
-Question: Are 45,000 individuals traveling to and from the streets?
-Answer: Yes, and 45,000 people looking for gold and suddenly began looking for gold
+Question:  such life can be prolonged through generations?
+Answer: Yes
 Type: direct
+========> QA-55 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-56 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and in 1958 brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-57 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not the objective] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
 ========> QA-58 =================
-Original:  What cut down their forest?
-Question: What fell on their backwoods?
-Answer: 45,000 people
-Type: nsubj_question
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and in the beginning was under the Department of Biology?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-59 =================
-Original:  Who did lose land and food?
-Question: What people lost their land and food?
-Answer: The Yanomami
-Type: ner_person_question
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not the first research organization] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-60 =================
-Original:  Where do The Yanomami live?
-Question: What is the residential area of The Yanomami?
-Answer: along the rivers of the rainforest in the north of Brazil
-Type: srl_locative
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and was possible?
+Answer: No, animal life [not the objective] was possible.
+Type: direct_with_multiple_srls
 ========> QA-61 =================
-Original:  What protect their forest?
-Question: What safeguards their forests?
-Answer: The Gavioes people of Brazil
-Type: nsubj_question
+Question:  such life can be prolonged through generations, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not such life] accompanied the research program.
+Type: direct_with_multiple_srls
 ========> QA-62 =================
-Original:  What lost land and food?
-Question: What were the lost lands and food sources?
-Answer: The Yanomami
-Type: nsubj_question
+Question:  Was others research short lived and inconclusive, and is possible?
+Answer: No, such life [not others research] is possible.
+Type: direct_with_multiple_srls
 ========> QA-63 =================
-Original:  What did they cut down?
-Question: What were the things they reduced?
-Answer: their forest
-Type: dobj_question
+Question:  Was others research short lived and inconclusive, and was possible?
+Answer: No, animal life [not others research] was possible.
+Type: direct_with_multiple_srls
 ========> QA-64 =================
-Original:  What use their forest?
-Question: What is the function of their forest?
-Answer: The Gavioes people of Brazil
-Type: nsubj_question
+Question:  such life can be prolonged through generations, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not such life] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
 ========> QA-65 =================
-Original:  What do they make to?
-Question: What is their dietary intake?
-Answer: roads
-Type: dobj_question
+Question:  Was The Lobund Institute raised to the status of an Institute, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-66 =================
-Original:  What do they protect?
-Question: What is their object of protection?
-Answer: their forest
-Type: dobj_question
+Question:  Was The Lobund Institute raised to the status of an Institute and was the first research organization, that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
 ========> QA-67 =================
-Original:  What did they make?
-Question: What was the outcome of their efforts?
-Answer: more than a hundred airports
-Type: dobj_question
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
 ========> QA-68 =================
-Original:  What did they make?
-Question: What was the outcome of their efforts?
-Answer: a forest park which tourists pay to visit
-Type: dobj_question
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not others] raised to the status of an Institute.
+Type: direct_with_multiple_srls
 ========> QA-69 =================
-Original:  What do they sell?
-Question: What is their product line?
-Answer: the Brazil nuts which grow on the forest trees
-Type: dobj_question
+Question:  Was The Lobund Institute under the Department of Biology, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not The Lobund Institute] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
 ========> QA-70 =================
-Original:  What do they use?
-Question: What is their mode of transportation?
-Answer: more than 2,000 different plants
-Type: dobj_question
+Question:  Is such life possible, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not such life] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
 ========> QA-71 =================
-Original:  Why did Many die?
-Question: What was the reason behind the death of Many?
-Answer: because new diseases came to their forest with 45,000 people
-Type: srl_causal
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not The Lobund Institute] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-72 =================
+Question:  Did a program leading to the master's degree accompany the research program and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-73 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and leading to the master's degree?
+Answer: No, a program [not The Lobund Institute] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-74 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria and definitively that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-75 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-76 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology and grew out of pioneering research in germ - free - life?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-77 =================
+Question:  When did pioneering research in germ - free - life begin?
+Answer: in 1928
+Type: srl_temporal
+========> QA-78 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and can prolonged through generations?
+Answer: No, such life [not The Lobund Institute] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-79 =================
+Question:  Did a program leading to the master's degree accompany the research program, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not a program leading to the master's degree] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-80 =================
+Question:  Is such life possible?
+Answer: Yes
+Type: direct
+========> QA-81 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not the first research organization] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-82 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not The Lobund Institute] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-83 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-84 =================
+Question:  Where was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations under the Department of in the beginning?
+Answer: the Department of Biology the Department of Biology the Department of Biology the Department of Biology
+Type: ner_loc_question
+========> QA-85 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not others] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-86 =================
+Question:  Was animal life possible, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not animal life] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-87 =================
+Question:  Was others research short lived and inconclusive, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not others research] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-88 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-89 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not This area of research] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-90 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not This area of research] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-91 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-92 =================
+Question:  such life can be prolonged through generations, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not such life] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-93 =================
+Question:  Was The Lobund Institute under the Department of Biology in the beginning?
+Answer: Yes, and The Lobund Institute for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations and was the first research organization, that such life is possible and that it can be prolonged through generations
+Type: direct
+========> QA-94 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-95 =================
+Question:  Is such life possible, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not such life] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-96 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not others] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-97 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and in the beginning was under the Department of Biology?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-98 =================
+Question:  When was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: for years
+Type: srl_temporal
+========> QA-99 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-100 =================
+Question:  Did by Pasteur pose a question, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not by Pasteur] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-101 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-102 =================
+Question:  Is such life possible, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not such life] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-103 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-104 =================
+Question:  Was animal life possible, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not animal life] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-105 =================
+Question:  Was animal life possible, and leading to the master's degree?
+Answer: No, a program [not animal life] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-106 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and is possible?
+Answer: No, such life [not The Lobund Institute] is possible.
+Type: direct_with_multiple_srls
+========> QA-107 =================
+Question:  When was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations under the Department of Biology?
+Answer: In the beginning
+Type: srl_temporal
+========> QA-108 =================
+Question:  Was others research short lived and inconclusive, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not others research] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-109 =================
+Question:  Was animal life possible, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not animal life] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-110 =================
+Question:  Is such life possible, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not such life] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
+========> QA-111 =================
+Question:  What had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: others
+Type: nsubj_question
+========> QA-112 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization and grew out of pioneering research in germ - free - life?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-113 =================
+Question:  Was The Lobund Institute under the Department of Biology, and can prolonged through generations?
+Answer: No, such life [not The Lobund Institute] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-114 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not the objective] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-115 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: Yes
+Type: direct
+========> QA-116 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization and in 1958 brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-117 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not the objective] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-118 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and leading to the master's degree?
+Answer: No, a program [not The Lobund Institute] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-119 =================
+Question:  Did by Pasteur pose a question, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not by Pasteur] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-120 =================
+Question:  Did a program leading to the master's degree accompany the research program, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not a program leading to the master's degree] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-121 =================
+Question:  What did This area of research originate in a question posed by Pasteur as to whether animal life?
+Answer: was possible without bacteria
+Type: pcomp_question
+========> QA-122 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not others] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-123 =================
+Question:  Did a program leading to the master's degree accompany the research program and definitively that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-124 =================
+Question:  Where was Lobund raised to the status of an Institute in the 1940s The Lobund Institute achieved independent status as a purely research organization and in 1950?
+Answer: The Lobund Institute
+Type: ner_loc_question
+========> QA-125 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-126 =================
+Question:  Did a program leading to the master's degree accompany the research program, and can prolonged through generations?
+Answer: No, such life [not a program leading to the master's degree] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-127 =================
+Question:  When has the work spread?
+Answer: Today
+Type: srl_temporal
+========> QA-128 =================
+Question:  such life can be prolonged through generations, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not such life] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
+========> QA-129 =================
+Question:  Was animal life possible, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not animal life] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-130 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and in the beginning was under the Department of Biology?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-131 =================
+Question:  Was animal life possible, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not animal life] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-132 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not This area of research] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-133 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and is possible?
+Answer: No, such life [not This area of research] is possible.
+Type: direct_with_multiple_srls
+========> QA-134 =================
+Question:  Did by Pasteur pose a question, and can prolonged through generations?
+Answer: No, such life [not by Pasteur] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-135 =================
+Question:  Did a program leading to the master's degree accompany the research program, and is possible?
+Answer: No, such life [not a program leading to the master's degree] is possible.
+Type: direct_with_multiple_srls
+========> QA-136 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and is possible?
+Answer: No, such life [not The Lobund Institute] is possible.
+Type: direct_with_multiple_srls
+========> QA-137 =================
+Question:  When was Lobund a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: for years
+Type: srl_temporal
+========> QA-138 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not This area of research] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-139 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not The Lobund Institute] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-140 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not others] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-141 =================
+Question:  What had others taken up?
+Answer: a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria
+Type: dobj_question
+========> QA-142 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-143 =================
+Question:  Did a program leading to the master's degree accompany the research program, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not a program leading to the master's degree] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-144 =================
+Question:  Where was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations raised to the status of an Institute in the 1940s The Lobund Institute achieved independent status as a purely research organization and in 1950?
+Answer: The Lobund Institute
+Type: ner_loc_question
+========> QA-145 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928?
+Answer: Yes
+Type: direct
+========> QA-146 =================
+Question:  Did a program leading to the master's degree accompany the research program, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not a program leading to the master's degree] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-147 =================
+Question:  Did by Pasteur pose a question, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not by Pasteur] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-148 =================
+Question:  Was The Lobund Institute under the Department of Biology, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-149 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not the objective] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-150 =================
+Question:  Was The Lobund Institute raised to the status of an Institute and grew out of pioneering research in germ - free - life?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-151 =================
+Question:  Did by Pasteur pose a question, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not by Pasteur] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-152 =================
+Question:  Was The Lobund Institute raised to the status of an Institute and leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-153 =================
+Question:  Was The Lobund Institute under the Department of Biology, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-154 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not the first research organization] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-155 =================
+Question:  Is such life possible, and was possible?
+Answer: No, animal life [not such life] was possible.
+Type: direct_with_multiple_srls
+========> QA-156 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and leading to the master's degree?
+Answer: No, a program [not The Lobund Institute] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-157 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-158 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and can prolonged through generations?
+Answer: No, such life [not The Lobund Institute] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-159 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology and was the first research organization, that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-160 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not the first research organization] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-161 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not This area of research] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
+========> QA-162 =================
+Question:  Was animal life possible, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not animal life] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-163 =================
+Question:  such life can be prolonged through generations, and in the beginning was under the Department of Biology?
+Answer: No, The Lobund Institute [not such life] In the beginning was under the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-164 =================
+Question:  Where was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations brought back into the Department of Biology the Department of Biology the Department of Biology in 1958?
+Answer: the Department of Biology
+Type: ner_loc_question
+========> QA-165 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-166 =================
+Question:  such life can be prolonged through generations, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not such life] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-167 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-168 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not The Lobund Institute] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-169 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-170 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-171 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-172 =================
+Question:  Was The Lobund Institute under the Department of Biology and grew out of pioneering research in germ - free - life?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-173 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not the objective] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-174 =================
+Question:  Was others research short lived and inconclusive, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not others research] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-175 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-176 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and is possible?
+Answer: No, such life [not others] is possible.
+Type: direct_with_multiple_srls
+========> QA-177 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and leading to the master's degree?
+Answer: No, a program [not The Lobund Institute] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-178 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not the objective] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-179 =================
+Question:  such life can be prolonged through generations, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not such life] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-180 =================
+Question:  Was others research short lived and inconclusive and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-181 =================
+Question:  Was others research short lived and inconclusive?
+Answer: Yes
+Type: direct
+========> QA-182 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not others] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-183 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not The Lobund Institute] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-184 =================
+Question:  Is such life possible, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not such life] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-185 =================
+Question:  such life can be prolonged through generations, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not such life] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-186 =================
+Question:  Where was it brought back into the Department of Biology the Department of Biology the Department of Biology in 1958?
+Answer: the Department of Biology
+Type: ner_loc_question
+========> QA-187 =================
+Question:  Was The Lobund Institute under the Department of Biology, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-188 =================
+Question:  Was The Lobund Institute under the Department of Biology and in the 1940s achieved independent status as a purely research organization?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-189 =================
+Question:  Did by Pasteur pose a question, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not by Pasteur] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-190 =================
+Question:  Did by Pasteur pose a question, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not by Pasteur] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-191 =================
+Question:  Did a program leading to the master's degree accompany the research program, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not a program leading to the master's degree] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-192 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not the objective] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-193 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not The Lobund Institute] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-194 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not the first research organization] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-195 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and is possible?
+Answer: No, such life [not The Lobund Institute] is possible.
+Type: direct_with_multiple_srls
+========> QA-196 =================
+Question:  Is such life possible, and leading to the master's degree?
+Answer: No, a program [not such life] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-197 =================
+Question:  Did a program leading to the master's degree accompany the research program, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not a program leading to the master's degree] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-198 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and in the 1940s achieved independent status as a purely research organization?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-199 =================
+Question:  Was others research short lived and inconclusive, and leading to the master's degree?
+Answer: No, a program [not others research] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-200 =================
+Question:  Did a program leading to the master's degree accompany the research program, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not a program leading to the master's degree] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-201 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: Yes
+Type: direct
+========> QA-202 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not others] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-203 =================
+Question:  Was animal life possible, and can prolonged through generations?
+Answer: No, such life [not animal life] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-204 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology in 1958?
+Answer: Yes, and The Lobund Institute raised to the status of an Institute and In the 1940s achieved independent status as a purely research organization
+Type: direct
+========> QA-205 =================
+Question:  Did by Pasteur pose a question, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not by Pasteur] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-206 =================
+Question:  Was others research short lived and inconclusive, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not others research] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-207 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No
+Type: direct
+========> QA-208 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and leading to the master's degree?
+Answer: No, a program [not the objective] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-209 =================
+Question:  Was animal life possible?
+Answer: Yes
+Type: direct
+========> QA-210 =================
+Question:  Did by Pasteur pose a question, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not by Pasteur] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
+========> QA-211 =================
+Question:  Was others research short lived and inconclusive, and can prolonged through generations?
+Answer: No, such life [not others research] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-212 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not the first research organization] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-213 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and raised to the status of an Institute?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-214 =================
+Question:  When was it brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: In 1958
+Type: srl_temporal
+========> QA-215 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not This area of research] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-216 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not others] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-217 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-218 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not The Lobund Institute] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-219 =================
+Question:  such life can be prolonged through generations, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not such life] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-220 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria and Though others had taken up this idea was short lived and inconclusive?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-221 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and is possible?
+Answer: No, such life [not The Lobund Institute] is possible.
+Type: direct_with_multiple_srls
+========> QA-222 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations?
+Answer: Yes
+Type: direct
+========> QA-223 =================
+Question:  such life can be prolonged through generations, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not such life] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-224 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and can prolonged through generations?
+Answer: No, such life [not The Lobund Institute] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-225 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-226 =================
+Question:  Is such life possible, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not such life] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-227 =================
+Question:  What did a program leading to the master's degree accompany?
+Answer: the research program
+Type: dobj_question
+========> QA-228 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not This area of research] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-229 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not The Lobund Institute] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-230 =================
+Question:  Was The Lobund Institute under the Department of Biology and in 1958 brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-231 =================
+Question:  such life can be prolonged through generations, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not such life] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-232 =================
+Question:  How does the first research organization answer to that such life is possible and that such life can be prolonged through generations?
+Answer: definitively
+Type: srl_manner
+========> QA-233 =================
+Question:  Is such life possible, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not such life] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-234 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and was possible?
+Answer: No, animal life [not others] was possible.
+Type: direct_with_multiple_srls
+========> QA-235 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not the first research organization] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
+========> QA-236 =================
+Question:  Was The Lobund Institute raised to the status of an Institute and in the beginning was under the Department of Biology?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-237 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and is possible?
+Answer: No, such life [not The Lobund Institute] is possible.
+Type: direct_with_multiple_srls
+========> QA-238 =================
+Question:  Did a program leading to the master's degree accompany the research program?
+Answer: Yes
+Type: direct
+========> QA-239 =================
+Question:  Did a program leading to the master's degree accompany the research program, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not a program leading to the master's degree] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-240 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and leading to the master's degree?
+Answer: No, a program [not The Lobund Institute] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-241 =================
+Question:  such life can be prolonged through generations, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not such life] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-242 =================
+Question:  Did a program leading to the master's degree accompany the research program, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not a program leading to the master's degree] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-243 =================
+Question:  When was it under the Department of Biology?
+Answer: In the beginning
+Type: srl_temporal
+========> QA-244 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and was the first research organization, that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-245 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not The Lobund Institute] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-246 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-247 =================
+Question:  Was animal life possible, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not animal life] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-248 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not the first research organization] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-249 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and was possible?
+Answer: No, animal life [not the first research organization] was possible.
+Type: direct_with_multiple_srls
+========> QA-250 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-251 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-252 =================
+Question:  Is such life possible, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not such life] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-253 =================
+Question:  Was The Lobund Institute under the Department of Biology, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-254 =================
+Question:  How was it brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology in 1958?
+Answer: as integral part of the Department of Biology the Department of Biology, but with The Lobund Institute own program leading to the degree of PhD in Gnotobiotics
+Type: srl_manner
+========> QA-255 =================
+Question:  Was animal life possible, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Answer: No, The Lobund Institute [not animal life] for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Type: direct_with_multiple_srls
+========> QA-256 =================
+Question:  Where was it under the Department of in the beginning?
+Answer: the Department of Biology the Department of Biology the Department of Biology the Department of Biology
+Type: ner_loc_question
+========> QA-257 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and raised to the status of an Institute?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-258 =================
+Question:  Did a program leading to the master's degree accompany the research program, and was possible?
+Answer: No, animal life [not a program leading to the master's degree] was possible.
+Type: direct_with_multiple_srls
+========> QA-259 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not The Lobund Institute] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-260 =================
+Question:  Was The Lobund Institute under the Department of Biology and raised to the status of an Institute?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-261 =================
+Question:  How was animal life possible?
+Answer: without bacteria
+Type: srl_manner
+========> QA-262 =================
+Question:  Did a program leading to the master's degree accompany the research program, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not a program leading to the master's degree] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-263 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not The Lobund Institute] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-264 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not This area of research] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-265 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and can prolonged through generations?
+Answer: No, such life [not others] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-266 =================
+Question:  Was The Lobund Institute raised to the status of an Institute in the 1940s The Lobund Institute achieved independent status as a purely research organization and in 1950?
+Answer: Yes, and The Lobund Institute In the beginning was under the Department of Biology and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations
+Type: direct
+========> QA-267 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations?
+Answer: Yes, and The Lobund Institute grew out of pioneering research in germ - free - life
+Type: direct
+========> QA-268 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and in 1958 brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-269 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not This area of research] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-270 =================
+Question:  Is such life possible, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not such life] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-271 =================
+Question:  Did by Pasteur pose a question, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not by Pasteur] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-272 =================
+Question:  Was The Lobund Institute under the Department of Biology, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-273 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and was the first research organization, that such life is possible and that such life can be prolonged through generations?
+Answer: No, The Lobund Institute [not others] was the first research organization, that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-274 =================
+Question:  What did by Pasteur pose as to whether animal life?
+Answer: was possible without bacteria
+Type: pcomp_question
+========> QA-275 =================
+Question:  such life can be prolonged through generations, and leading to the master's degree?
+Answer: No, a program [not such life] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-276 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and leading to the master's degree?
+Answer: No, a program [not The Lobund Institute] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-277 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations and grew out of pioneering research in germ - free - life?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-278 =================
+Question:  Was others research short lived and inconclusive, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not others research] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-279 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and is possible?
+Answer: No, such life [not the objective] is possible.
+Type: direct_with_multiple_srls
+========> QA-280 =================
+Question:  Was The Lobund Institute raised to the status of an Institute, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-281 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and leading to the master's degree?
+Answer: No, a program [not the first research organization] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-282 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not the first research organization] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-283 =================
+Question:  Was animal life possible, and grew out of pioneering research in germ - free - life?
+Answer: No, The Lobund Institute [not animal life] grew out of pioneering research in germ - free - life.
+Type: direct_with_multiple_srls
+========> QA-284 =================
+Question:  When was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: In 1958
+Type: srl_temporal
+========> QA-285 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and can prolonged through generations?
+Answer: No, such life [not This area of research] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-286 =================
+Question:  When was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations raised to the status of an Institute?
+Answer: In the 1940s The Lobund Institute achieved independent status as a purely research organization and in 1950
+Type: srl_temporal
+========> QA-287 =================
+Question:  Was others research short lived and inconclusive, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not others research] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-288 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and can prolonged through generations?
+Answer: No, such life [not The Lobund Institute] can prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-289 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and leading to the degree of PhD in Gnotobiotics?
+Answer: No, The Lobund Institute own program [not the objective] leading to the degree of PhD in Gnotobiotics.
+Type: direct_with_multiple_srls
+========> QA-290 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology and in the beginning was under the Department of Biology?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-291 =================
+Question:  Was The Lobund Institute under the Department of Biology and was the first research organization, that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-292 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations and accompanied the research program?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-293 =================
+Question:  Had others taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria, and in 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology?
+Answer: No, The Lobund Institute [not others] In 1958 brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology.
+Type: direct_with_multiple_srls
+========> QA-294 =================
+Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not This area of research] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-295 =================
+Question:  Did by Pasteur pose a question, and is possible?
+Answer: No, such life [not by Pasteur] is possible.
+Type: direct_with_multiple_srls
+========> QA-296 =================
+Question:  Where was it brought back in 1958?
+Answer: the Department of Biology the Department of Biology the Department of Biology the Department of Biology
+Type: ner_loc_question
+========> QA-297 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and in the 1940s achieved independent status as a purely research organization?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-298 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology and in the 1940s achieved independent status as a purely research organization?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-299 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-300 =================
+Question:  such life can be prolonged through generations, and was possible?
+Answer: No, animal life [not such life] was possible.
+Type: direct_with_multiple_srls
+========> QA-301 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-302 =================
+Question:  Was animal life possible, and is possible?
+Answer: No, such life [not animal life] is possible.
+Type: direct_with_multiple_srls
+========> QA-303 =================
+Question:  Did by Pasteur pose a question, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Answer: No, others research [not by Pasteur] Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Type: direct_with_multiple_srls
+========> QA-304 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-305 =================
+Question:  Is such life possible, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not such life] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-306 =================
+Question:  Did by Pasteur pose a question, and leading to the master's degree?
+Answer: No, a program [not by Pasteur] leading to the master's degree.
+Type: direct_with_multiple_srls
+========> QA-307 =================
+Question:  Was others research short lived and inconclusive, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not others research] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-308 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not The Lobund Institute] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-309 =================
+Question:  Was others research short lived and inconclusive and definitively that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-310 =================
+Question:  What did Lobund achieve in the 1940s?
+Answer: independent status as a purely research organization
+Type: dobj_question
+========> QA-311 =================
+Question:  Was The Lobund Institute under the Department of Biology, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-312 =================
+Question:  What achieved independent status as a purely research organization in the 1940s?
+Answer: The Lobund Institute
+Type: nsubj_question
+========> QA-313 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and that such life is possible and that such life can be prolonged through generations?
+Answer: No, the first research organization [not the objective] that such life is possible and that such life can be prolonged through generations.
+Type: direct_with_multiple_srls
+========> QA-314 =================
+Question:  Was animal life possible, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not animal life] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-315 =================
+Question:  Did The Lobund Institute achieve independent status as a purely research organization, and was possible?
+Answer: No, animal life [not The Lobund Institute] was possible.
+Type: direct_with_multiple_srls
+========> QA-316 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and was the first research organization, that such life is possible and that it can be prolonged through generations?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-317 =================
+Question:  Was The Lobund Institute raised to the status of an Institute and in 1958 brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-318 =================
+Question:  Was The Lobund Institute brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-319 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not the objective] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-320 =================
+Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and a question posed as to whether animal life was possible without bacteria?
+Answer: No, by Pasteur [not the objective] a question posed as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-321 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928 and raised to the status of an Institute?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-322 =================
+Question:  Was animal life possible, and raised to the status of an Institute?
+Answer: No, The Lobund Institute [not animal life] raised to the status of an Institute.
+Type: direct_with_multiple_srls
+========> QA-323 =================
+Question:  Was The Lobund Institute a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations, and taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, others [not The Lobund Institute] taken a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-324 =================
+Question:  Was others research short lived and inconclusive, and accompanied the research program?
+Answer: No, a program leading to the master's degree [not others research] accompanied the research program.
+Type: direct_with_multiple_srls
+========> QA-325 =================
+Question:  When did the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations achieve independent status as a purely research organization?
+Answer: In the 1940s
+Type: srl_temporal
+========> QA-326 =================
+Question:  Where was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations brought back in 1958?
+Answer: the Department of Biology the Department of Biology the Department of Biology the Department of Biology
+Type: ner_loc_question
+========> QA-327 =================
+Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations and grew out of pioneering research in germ - free - life?
+Answer: yes
+Type: direct_with_multiple_srls
+========> QA-328 =================
+Question:  Does the first research organization answer to that such life is possible and that such life can be prolonged through generations, and in the 1940s achieved independent status as a purely research organization?
+Answer: No, The Lobund Institute [not the first research organization] In the 1940s achieved independent status as a purely research organization.
+Type: direct_with_multiple_srls
+========> QA-329 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Answer: No, This area of research [not The Lobund Institute] originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Type: direct_with_multiple_srls
+========> QA-330 =================
+Question:  Did The Lobund Institute grow out of pioneering research in germ - free - life which began in 1928, and But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research?
+Answer: No, the objective [not The Lobund Institute] But was not merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research.
+Type: direct_with_multiple_srls
+========> QA-331 =================
+Question:  Where was not the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical?
+Answer: a question posed by Pasteur as to whether animal life was possible without bacteria
+Type: ner_loc_question
+========> QA-332 =================
+Question:  Where was it in the beginning?
+Answer: the Department of Biology
+Type: ner_loc_question

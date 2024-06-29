@@ -211,7 +211,7 @@ class Helper:
         List[spacy.tokens.Token]    
         """
         predicate_tokens = []
-        relevant_deps = {"aux", "auxpass", "neg", "prt", "cc", "conj"}
+        relevant_deps = {"aux", "auxpass", "neg", "prt"}
         if rel_deps is not None:
             relevant_deps = set(rel_deps)
         if include_deps is not None:
@@ -227,8 +227,9 @@ class Helper:
                 break
         
         if has_dobj:
-            relevant_deps.remove("cc")
-            relevant_deps.remove("conj")
+            if "cc" in relevant_deps and "conj" in relevant_deps:
+                relevant_deps.remove("cc")
+                relevant_deps.remove("conj")
                 
         def add_related_tokens(token):
             predicate_tokens.append(token)

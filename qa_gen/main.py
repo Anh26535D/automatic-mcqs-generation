@@ -27,24 +27,26 @@ nlp = spacy.load('en_core_web_sm')
 nlp.add_pipe("fastcoref")
 predictor = Predictor.from_path(SRL_MODEL_PATH)
 
-def explandContractions(s, contractions_dict=contractions_dict):
+def expandContractions(s, contractions_dict=contractions_dict):
     def replace(match):
         return contractions_dict[match.group(0)]
     return contractions_re.sub(replace, s)
 
 
 def clean_text(text: str):
-    text = text.replace('\n', ' ')
-    text = text.replace('\t', ' ')
-    text = text.replace('\r', ' ')
+    text = text.replace('\n', '')
+    text = text.replace('\t', '')
+    text = text.replace('\r', '')
     text = text.replace('“', '"')
     text = text.replace('”', '"')
     text = text.replace("’", "'")
+    text = text.replace("‘", "'")
+    text = text.strip()
     return text
 
 
 def generate(text: str, verbose=False):
-    text = explandContractions(text)
+    text = expandContractions(text)
     textList = []
     textList.append(text)
     
@@ -100,7 +102,11 @@ def generate(text: str, verbose=False):
     qdeconstruct_result = qdeconstructor.deconstruct()
     
     question_constructor = QConstructor(doc, srls, 2)
-    found_questions = question_constructor.constructQuestion(qdeconstruct_result, True)
+    found_questions = question_constructor.constructQuestion(qdeconstruct_result, 
+                                                             verbose=True, 
+                                                             limit=500, 
+                                                             selection_method='random',
+                                                             type_name='direct',)
     
     return found_questions
 
@@ -118,12 +124,16 @@ if __name__ == "__main__":
     No one cut down any trees during that time. In Panama, the Kuna people saved their forest. 
     They made a forest park which tourists pay to visit. 
     The Gavioes people of Brazil use the forest, but they protect it as well. 
-    They find and sell the Brazil nuts which grow on the forest trees.
+    They find the Brazil nuts which grow on the forest trees.
     '''
+    context = """
+     The Lobund Institute grew out of pioneering research in germ-free-life which began in 1928. This area of research originated in a question posed by Pasteur as to whether animal life was possible without bacteria. Though others had taken up this idea, their research was short lived and inconclusive. Lobund was the first research organization to answer definitively, that such life is possible and that it can be prolonged through generations. But the objective was not merely to answer Pasteur's question but also to produce the germ free animal as a new tool for biological and medical research. This objective was reached and for years Lobund was a unique center for the study and production of germ free animals and for their use in biological and medical investigations. Today the work has spread to other universities. In the beginning it was under the Department of Biology and a program leading to the master's degree accompanied the research program. In the 1940s Lobund achieved independent status as a purely research organization and in 1950 was raised to the status of an Institute. In 1958 it was brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics.
+    
+    """
     context = clean_text(context)
-    from helper import Helper
-    Helper.visualize_dependencies(context)
-    raise 1
+    # from helper import Helper
+    # Helper.visualize_dependencies(context)
+    # raise 1
     qa_pairs = generate(context, True)
     debug_file = 'debug.txt'
     with open(debug_file, 'w') as f:
@@ -131,7 +141,6 @@ if __name__ == "__main__":
         f.writelines(f'Number of QA pairs: {len(qa_pairs)}\n')
         for idx, qa in enumerate(qa_pairs):
             f.writelines(f'========> QA-{idx} =================\n')
-            f.writelines(f'Original: {qa["original"]}\n')
             f.writelines(f'Question: {qa["question"]}\n')
             f.writelines(f'Answer: {qa["answer"]}\n')
             f.writelines(f'Type: {qa["type"]}\n')

@@ -84,17 +84,16 @@ class QDeconstructor:
                 if noun_phrase.start_char <= token.idx < noun_phrase.end_char:
                     span.append(token)
             self.noun_phrases.append(span)
-    
+            
     
     def deconstruct(self):
         """
         Currently supports the following dependency parse types: 
-            dative, dobj, attr, pcomp, nsubj, nsubjpass
+            dative, dobj, pcomp, nsubj, nsubjpass
         Curerntly supports the following NER types:
             DATE, LOC, CARDINAL, PERSON (LOC consists of LOC, ORG, GPE, FACILITY)
         Currently supports the following SRL types:
             DIRECT, ARGM-LOC, ARGM-TMP, ARGM-CAU, ARGM-PNC (ARGM-PRP), ARGM-MNR
-        Currently supports multiple SRLs required for a question (TODO: Add support for multiple SRLs in a question)
 
         Returns:
         --------
@@ -102,44 +101,9 @@ class QDeconstructor:
         """
         deconstruction_result : List[QDeconstructionResult] = []
         
-        # TODO: Direct question required multiple SRLs
-        # for srl1 in self.srls:
-        #     for srl2 in self.srls:
-        #         if ('V' not in srl1.keys()) or ('V' not in srl2.keys()):
-        #             continue
-        #         # Check for different sentences
-        #         is_diff_sent = False
-        #         for tok1 in srl1['V']:
-        #             for tok2 in srl2['V']:
-        #                 if tok1.sent.start != tok2.sent.start:
-        #                     is_diff_sent = True
-        #                     break
-        #         if not is_diff_sent:
-        #             continue
-        #         found_subject_tokens1 = Helper.checkForAppropriateObjOrSub(srl1, 0)
-        #         found_object_tokens1 = Helper.checkForAppropriateObjOrSub(srl1, 1)
-        #         found_subject_text1 = Helper.merge_tokens(found_subject_tokens1)
-        #         found_object_text1 = Helper.merge_tokens(found_object_tokens1)
-                
-        #         found_subject_tokens2 = Helper.checkForAppropriateObjOrSub(srl2, 0)
-        #         found_object_tokens2 = Helper.checkForAppropriateObjOrSub(srl2, 1)
-        #         found_subject_text2 = Helper.merge_tokens(found_subject_tokens2)
-        #         found_object_text2 = Helper.merge_tokens(found_object_tokens2)
-                
-        #         if (found_subject_text1 == '') or (found_object_text1 == '') or (found_subject_text1 == found_object_text1):
-        #             continue
-        #         if (found_subject_text2 == '') or (found_object_text2 == '') or (found_subject_text2 == found_object_text2):
-        #             continue
-        #         # Check if the two subject are in cluster
-        #         pass 
-                
-            
-
         # Dependency parsing rules
         for word in self.doc:
-            if word.dep_ == 'attr':
-                deconstruction_result.extend(self._deconstruct_attr(word))
-            elif word.dep_ == 'dobj':
+            if word.dep_ == 'dobj':
                 deconstruction_result.extend(self._deconstruct_dobj(word))
             elif word.dep_ == 'dative':
                 deconstruction_result.extend(self._deconstruct_dative(word))
@@ -392,46 +356,6 @@ class QDeconstructor:
                 current_result.extra_field = extra_tokens
                 current_result.type = "dobj_question"
                 deconstruction_result.append(current_result)
-        return deconstruction_result
-    
-    
-    def _deconstruct_attr(self, attr_word: Token) -> List[QDeconstructionResult]:
-        """Deconstructs an attribute"""
-        
-        if attr_word.dep_ != 'attr':
-            raise ValueError(f"Word {attr_word} is not of type attr")
-        
-        deconstruction_result : List[QDeconstructionResult] = []
-        for srl in self.srls:
-            if ('V' not in srl.keys()):
-                continue
-            
-            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
-            found_subject_text = Helper.merge_tokens(found_subject_tokens)
-            
-            if (found_subject_text == ''):
-                continue
-            
-            verb_text = Helper.merge_tokens(srl['V'])
-            if (verb_text == attr_word.head.text):
-                for k, v in srl.items():
-                    text_v = Helper.merge_tokens(v)
-                    if (k != 'V') and (text_v != found_subject_text) and (attr_word.text in text_v):
-                        extra_tokens = []
-                        if ('ARGM-LOC' in srl.keys()):
-                            extra_tokens.extend(srl['ARGM-LOC'])
-                        if ('ARGM-TMP' in srl.keys()):
-                            extra_tokens.extend(srl['ARGM-TMP'])
-                        deconstruction_result.append(
-                            QDeconstructionResult(
-                                predicate=[],
-                                object=found_subject_tokens,
-                                subject=[],
-                                extra_field=extra_tokens,
-                                type="attr_question",
-                                key_answer=[attr_word]
-                            )
-                        )
         return deconstruction_result
     
     

@@ -1,0 +1,100 @@
+The Lobund Institute grew out of pioneering research in germ-free-life which began in 1928. This area of research originated in a question posed by Pasteur as to whether animal life was possible without bacteria. Though others had taken up this idea, their research was short lived and inconclusive. Lobund was the first research organization to answer definitively, that such life is possible and that it can be prolonged through generations. But the objective was not merely to answer Pasteur's question but also to produce the germ free animal as a new tool for biological and medical research. This objective was reached and for years Lobund was a unique center for the study and production of germ free animals and for their use in biological and medical investigations. Today the work has spread to other universities. In the beginning it was under the Department of Biology and a program leading to the master's degree accompanied the research program. In the 1940s Lobund achieved independent status as a purely research organization and in 1950 was raised to the status of an Institute. In 1958 it was brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics.
+Original Question:  Did This area of research originate in a question posed by Pasteur as to whether animal life was possible without bacteria, and leading to the master's degree?
+Original Answer: No, a program (not This area of research) leading to the master's degree.
+Question: Was the question of whether animal life could exist without bacteria, posed by Pasteur and leading to the awarding of a master's degree, the driving force behind this research?
+A: A program that leads to a master's degree is not included in this research area.
+B: A program that leads to the awarding of a master's degree is not included in this research
+C: A program that leads to a master's degree is not included in this research area
+D: A program that leads to the awarding of a master's degree is not included in this study area
+Type: direct_with_multiple_srls
+
+Original Question:  Was The Lobund Institute raised to the status of an Institute and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations?
+Original Answer: yes
+Question: Was The Lobund Institute elevated to a distinct level of establishment for the study and production of germ-free animals, as well as for their utilization in biological and medical investigations?
+A: yes
+B: I don't know
+C: Yes
+D: not
+Type: direct_with_multiple_srls
+
+Original Question:  When was Lobund raised to the status of an Institute?
+Original Answer: In the 1940s The Lobund Institute achieved independent status as a purely research organization and in 1950
+Question: When did Lobund become an Institute?
+A: The Lobund Institute became an independent research organization in the 1940s and was established in 1950.
+B: The Lobund Institute became an independent research organization in the 50s
+C: The Lobund Institute became an independent research organization in 1958
+D: The Lobund Institute became an independent research organization in 1950
+Type: srl_temporal
+
+Original Question:  Was The Lobund Institute raised to the status of an Institute, and a question posed as to whether animal life was possible without bacteria?
+Original Answer: No, by Pasteur (not The Lobund Institute) a question posed as to whether animal life was possible without bacteria.
+Question: Was The Lobund Institute established as an educational institution, and was the possibility of life without bacteria explored?
+A: The question of whether animal life was possible without bacteria was asked by Pasteur, not The Lobund Institute.
+B: Pasteur had taken up this idea as to whether animal life was possible
+C: Pasteur had taken up the idea of whether animal life was possible without viruses
+D: Pasteur had taken up the idea of finding a cure for animal life without bacteria
+Type: direct_with_multiple_srls
+
+Original Question:  Did The Lobund Institute achieve independent status as a purely research organization in the 1940s?
+Original Answer: Yes, and The Lobund Institute In the beginning was under the Department of Biology and for years was a unique center for the study and production of germ free animals and for their use in biological and medical investigations
+Question: Was The Lobund Institute a self-sufficient research organization during the 1940s?
+A: For many years, The Lobund Institute was a distinct center that focused on studying and producing germ-free animals, which were also utilized in biological and medical research. It was initially affiliated with the Department of Biology.
+B: The Lobund Institute was founded by Pasteur as part of its research
+C: The Lobund Institute became independent in 1950
+D: The Lobund Institute grew out of pioneering research in animal-free-life
+Type: direct
+
+Original Question:  Did a program leading to the master's degree accompany the research program, and for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations?
+Original Answer: No, The Lobund Institute (not a program leading to the master's degree) for years was a unique center for the study and production of germ free animals and for germ free animals use in biological and medical investigations.
+Question: Did a master's degree program complement the research program, and was it specialized in studying and creating germ-free animals, as well as using them for biological or medical investigations?
+A: For many years, The Lobund Institute was an exclusive institution dedicated to the creation of germ-free animals and their utilization in biological and medical research, rather than a master's program.
+B: The Lobund Institute was a unique institution dedicated to the creation of germ-free animals and for their use in
+C: The Lobund Institute was a unique institution dedicated to the study and production of germ
+D: The Lobund Institute was a unique institute dedicated to the creation of germ-free animals and their utilization in biological
+Type: direct_with_multiple_srls
+
+Original Question:  Was the objective merely to answer a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria but also to produce the germ free animal as a new tool for biological and medical research, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Original Answer: No, This area of research (not the objective) originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Question: Did Pasteur's inquiry about the possibility of animal life without bacteria lead to the creation of a germ-free animal for biological and medical research, which was also inspired by him?
+A: The question of whether animal life could exist without bacteria, as posed by Pasteur, led to the development of this research area.
+B: Pasteur's inquiry about animal life
+C: Pasteur's question about the possibility of animal life without bacteria led to the creation of a germ-free animal for biological and medical research
+D: The question of whether animal life was possible
+Type: direct_with_multiple_srls
+
+Original Question:  Was The Lobund Institute the first research organization to answer definitively, that such life is possible and that such life can be prolonged through generations, and Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive?
+Original Answer: No, others research (not The Lobund Institute) Though others had taken up a question posed by Pasteur as to whether animal life was possible without bacteria a question posed by Pasteur as to whether animal life was possible without bacteria was short lived and inconclusive.
+Question: Did The Lobund Institute become the first research organization to definitively prove that life is possible and can be prolonged over time, while others have ignored Pasteur's inquiry about the possibility of animal life without bacteria, which was inconclusive due to its brief duration and limited scientific evidence.
+A: While Pasteur's question about the possibility of animal life without bacteria was not taken up by The Lobund Institute, other researchers (not included in the group) did not conduct comparable research.
+B: Pasteur's inquiry about the possibility of animal life without bacteria was not taken up by Other Researchers
+C: Pasteur's inquiry about the possibility of animal life without bacteria was taken up by The Lobund Institute
+D: Pasteur's inquiry about the possibility of animal life without bacteria was not taken up by Some scientists
+Type: direct_with_multiple_srls
+
+Original Question:  What accompanied the research program?
+Original Answer: a program leading to the master's degree
+Question: What was present in the research program?
+A: An educational program that leads to a master's degree.
+B: A unique center for the study and production of germ-free dogs
+C: A unique center for the study of germ-free-life
+D: An independent program
+Type: nsubj_question
+
+Original Question:  Did The Lobund Institute achieve independent status as a purely research organization, and originated in a question posed by Pasteur as to whether animal life was possible without bacteria?
+Original Answer: No, This area of research (not The Lobund Institute) originated in a question posed by Pasteur as to whether animal life was possible without bacteria.
+Question: Did The Lobund Institute become an independent research organization after Pasteur raised a question about the possibility of animals existing without bacteria?
+A: Pasteur raised a question about the possibility of animal life without bacteria, which led to the development of this research area (not The Lobund Institute).
+B: Pasteur raised a question about whether animal life was possible without bacteria
+C: Pasteur raised a question about animal life without bacteria which led to the development of
+D: Pasteur raised a question about Animal life without bacteria
+Type: direct_with_multiple_srls
+
+Original Question:  How was the one that grew out of pioneering research in germ - free - life and grew out of pioneering research in germ - free - life and was the first research organization, that such life is possible and that it can be prolonged through generations brought back into the Department of Biology the Department of Biology the Department of Biology the Department of Biology in 1958?
+Original Answer: as integral part of the Department of Biology the Department of Biology, but with The Lobund Institute own program leading to the degree of PhD in Gnotobiotics
+Question: By bringing back into the Department of Biology, Department Of Biology and Departments that were previously unaware of the possibility of prolonging life through generations, how did this research organization come to be?
+A: The Lobund Institute's program in Gnotobiotics, which leads to a PhD in the same field, is not part of the Department of Biology.
+B: The Lobund Institute's program in Gnotobiotics is
+C: The Lobund Institute's program in Gnotobiotics is not part of the Department Of Biology
+D: The Lobund Institute's program in Gnotobiotics leads to a PhD in Gnotobiotics
+Type: srl_manner
+

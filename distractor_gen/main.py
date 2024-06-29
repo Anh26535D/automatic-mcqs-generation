@@ -67,10 +67,14 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
         input_ids=source_encoding['input_ids'].to(device),
         attention_mask=source_encoding['attention_mask'].to(device),
         num_beams=20,
+        temperature=1.2,
+        repetition_penalty=2.5,
+        top_p=0.95,
         max_length=TARGET_MAX_TOKEN_LEN,
         early_stopping=True,
         use_cache=True,
-        num_return_sequences=10,
+        num_return_sequences=20,
+        do_sample=True,
     )
 
     preds = {
@@ -78,62 +82,82 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
         for generated_id in generated_ids
     }
     
-    formated_options = []
+    formatted_options = []
     for option in preds:
         option = option.replace('<pad>', '')
         option = option.replace('</s>', '')
         distractors = option.split(';')
         for distractor in distractors:
             if distractor:
-                formated_options.append(distractor)
-    
-    for option in formated_options:
-        option = option.strip()
+                formatted_options.append(distractor)
         
-    formated_options = list(set(formated_options))
-    answer_embedding = model.encode([answer])
+    formatted_options = list(set(formatted_options))
+
+    if len(formatted_options) == 0:
+        formatted_options.append("-")
+        formatted_options.append("-")
+        formatted_options.append("-")
+    if len(formatted_options) == 1:
+        formatted_options.append("-")
+        formatted_options.append("-")
+    if len(formatted_options) == 2:
+        formatted_options.append("-")
     
-    if len(formated_options) == 0:
-        formated_options.append("-")
-        formated_options.append("-")
-        formated_options.append("-")
-    if len(formated_options) == 1:
-        formated_options.append("-")
-        formated_options.append("-")
-    if len(formated_options) == 2:
-        formated_options.append("-")
+    formatted_options = [option.strip() for option in formatted_options]
+    # remove mark in options
+    marks = ['.', ',', '?', '!', ':', ';']
+    formatted_options = [option if option[-1] not in marks else option[:-1] for option in formatted_options]
+    
+    # Remove options that have high similarity with the answer (above 0.25 percentile)
+    lst_option_embeddings = model.encode(formatted_options, convert_to_tensor=True)
+    answer_embedding = model.encode([answer])
+    similarity = [cosine_sim(answer_embedding, opt_embedding).item() for opt_embedding in lst_option_embeddings]
+    selected_option_indices = [i for i, sim in enumerate(similarity) if sim > np.percentile(similarity, 25)]
+    
+    # Remove options that have seem to be the same with each other
+    removed_option_indices = []
+    for i in selected_option_indices:
+        for j in selected_option_indices:
+            if i != j:
+                semantic_similarity = cosine_sim(lst_option_embeddings[i], lst_option_embeddings[j]).item()
+                token_similarity = sentence_bleu([formatted_options[i].split()], formatted_options[j].split(), smoothing_function=smoothing_function)
+                if semantic_similarity > 0.95 or token_similarity > 0.95:
+                    if j not in removed_option_indices and i not in removed_option_indices:
+                        removed_option_indices.append(j)
+    selected_option_indices = [i for i in selected_option_indices if i not in removed_option_indices]
 
-    best_combination = None
-    best_score = float('inf')  # Initialize with a low value since we are maximizing the score
-    for list_opts in itertools.combinations(formated_options, 3):
-        total_score = 0.0
-        list_opts_embeddings = model.encode(formated_options, convert_to_tensor=True)
-        # Calculate the combined score based on the options
-        total_similarity = 0.0
-        num_pairs1 = 0
-        for i in range(len(list_opts) - 1):
-            for j in range(i + 1, len(list_opts)):
-                semantic_similarity = cosine_sim(list_opts_embeddings[j], list_opts_embeddings[i]).item()
-                bleu_similarity = sentence_bleu([list_opts[i].split()], list_opts[j].split(), smoothing_function=smoothing_function)
-                num_pairs1 += 1
-                score = 0.4*semantic_similarity + 0.6*bleu_similarity
-                total_similarity += score
-        total_score += total_similarity / num_pairs1
-        # Calculate the combined score based on the answer
-        total_similarity = 0.0
-        num_pairs2 = 0
-        for i in range(len(list_opts)):
-            semantic_similarity = cosine_sim(answer_embedding, list_opts_embeddings[i]).item()
-            bleu_similarity = sentence_bleu([answer.split()], list_opts[i].split(), smoothing_function=smoothing_function)
-            score = 0.4*semantic_similarity + 0.6*bleu_similarity
-            total_similarity += score
-            num_pairs2 += 1
-        total_score += total_similarity / num_pairs2
-        if total_score < best_score:
+    best_com = None
+    best_score = -float('inf')
+    eps = 1e-6
+    for comb in itertools.combinations(selected_option_indices, 3):
+        d2d_score = 0
+        cnt = 0
+        for i in comb:
+            for j in comb:
+                if i != j:
+                    cnt += 1
+                    token_similarity = sentence_bleu([formatted_options[i].split()], formatted_options[j].split(), smoothing_function=smoothing_function)
+                    semantic_similarity = cosine_sim(lst_option_embeddings[i], lst_option_embeddings[j]).item()
+                    d2d_score = d2d_score + 1 / ((semantic_similarity + eps) + (token_similarity + eps)) 
+        d2d_score = d2d_score / cnt
+        
+        d2a_score = 0
+        cnt = 0
+        for i in comb:
+            cnt += 1
+            token_similarity = sentence_bleu([answer.split()], formatted_options[i].split(), smoothing_function=smoothing_function)
+            semantic_similarity = cosine_sim(answer_embedding, lst_option_embeddings[i]).item()
+            d2a_score = d2a_score + 1 / ((semantic_similarity + eps) + (token_similarity + eps)) 
+        d2a_score = d2a_score / cnt
+        
+        alpha = 0.5
+        total_score = 1 / (alpha / (d2d_score + eps) + (1 - alpha) / (d2a_score + eps))
+
+        if total_score > best_score:
             best_score = total_score
-            best_combination = list_opts
+            best_com = comb
 
-    return list(best_combination)
+    return [formatted_options[i] for i in best_com]
 
 if __name__ == '__main__':
     context = '''

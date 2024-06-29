@@ -1,7 +1,6 @@
 from typing import List, Tuple
 
 from QDeconstructor import QDeconstructionResult
-from Paraphraser import paraphrase
 from helper import Helper
 import utils
 from spacy.tokens import Token
@@ -34,6 +33,18 @@ class QConstructor:
                         span.append(token)
                 mod_srl[k] = span
             self.srls.append(mod_srl) 
+            
+
+    def _is_in_same_cluster(self, token1: Token, token2: Token) -> bool:
+        """Checks if two tokens are in the same coreference cluster"""
+        antecedent1, span1 = self._get_antecedent(token1)
+        antecedent2, span2 = self._get_antecedent(token2)
+        if Helper.merge_tokens(antecedent1) == Helper.merge_tokens(antecedent2):
+            return True
+        for tok1 in antecedent1:
+            if tok1 in antecedent2:
+                return True
+        return False
         
         
     def _get_antecedent(self, token: Token) -> Tuple[List[Token], List[Token]]:
@@ -69,6 +80,23 @@ class QConstructor:
                 modified_tokens.extend(antecedent_tokens)
                 replaced = True
         return modified_tokens
+    
+    def _resolve_antecedent(self, tokens: List[Token]) -> List[Token]:
+        resolved_tokens = []
+        previous_resolved_tokens = []
+        for token in tokens:
+            antecedent_tokens, _ = self._get_antecedent(token)
+            # just replace if token is not in the antecedent itself
+            if token in antecedent_tokens:
+                resolved_tokens.append(token)
+            else:
+                is_resolved_before = False
+                if token in previous_resolved_tokens:
+                    is_resolved_before = True
+                if not is_resolved_before:
+                    resolved_tokens.extend(antecedent_tokens)
+                    previous_resolved_tokens = [token for token in antecedent_tokens]
+        return resolved_tokens
         
     
     def _enhance_subject(self, subject_input: List[Token]) -> List[str]:
@@ -100,6 +128,8 @@ class QConstructor:
                     # for each span, loop through the srls to extract the srl sentence such that span has enrolled in
                     for idx in sorted_possible_span_indices:
                         for srl_idx, srl in enumerate(self.srls):
+                            if 'V' not in self.srls[srl_idx]:
+                                continue
                             subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
                             if len(subject_tokens) > 0 and any([(tok in subject_tokens) for tok in self.clusters[found_cluster_idx][idx]]):
                                 if srl_idx not in possible_srl_indices:
@@ -134,7 +164,6 @@ class QConstructor:
                                         sent_srl_tokens.extend(simplified_v)
                                 sorted_sent_srl_tokens = sorted(sent_srl_tokens, key=lambda x: x.idx)
                                 srl_text = srl_text + ' and ' + Helper.merge_tokens(sorted_sent_srl_tokens)
-                        srl_text = srl_text + ', '
                         outputs.append(srl_text)
         return outputs
     
@@ -174,15 +203,19 @@ class QConstructor:
                     # for each span, loop through the srls to extract the srl sentence such that span has enrolled in
                     for idx in sorted_possible_span_indices:
                         for srl_idx, srl in enumerate(self.srls):
+                            if 'V' not in self.srls[srl_idx]:
+                                continue
                             subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
                             if len(subject_tokens) > 0 and any([(tok in subject_tokens) for tok in self.clusters[found_cluster_idx][idx]]):
                                 if srl_idx not in possible_srl_indices:
                                     possible_srl_indices.append(srl_idx)
-                    possible_srl_indices = possible_srl_indices[::-1]
-                    if len(possible_srl_indices) > 0:
+                    # Get unique srls in different sentences
+                    srl_indices = possible_srl_indices[::-1]
+                            
+                    if len(srl_indices) > 0:
                         srl_text = answer_input + ', '
                         is_first_clause = True
-                        for srl_idx in possible_srl_indices[:min(self.enhance_level, len(possible_srl_indices))]:
+                        for srl_idx in srl_indices[:min(self.enhance_level, len(srl_indices))]:
                             sent_srl_tokens = []
                             subject_tokens = Helper.checkForAppropriateObjOrSub(self.srls[srl_idx], 0)
                             for k, v in self.srls[srl_idx].items():
@@ -204,10 +237,101 @@ class QConstructor:
         return outputs
     
     
+    def _enhance_direct_question_by_multiple_srls(self, subject: List[Token]) -> List[Tuple[str, str]]:
+        """
+        Enhancing direct question by adding multiple SRLs.
+        
+        Args:
+        -----
+        subject: List[Token]
+        
+        Returns:
+        --------
+        List[Tuple[str, str]]
+            List of tuples of new extra field and answer
+        """
+        outputs = []
+        for srl in self.srls:
+            if ('V' not in srl.keys()):
+                continue
+            # Check for different sentences
+            is_diff_sent = False
+            for tok1 in subject:
+                for tok2 in srl['V']:
+                    if tok1.sent.start != tok2.sent.start:
+                        is_diff_sent = True
+                        break
+            if not is_diff_sent:
+                continue
+            
+            found_subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+            found_object_tokens = Helper.checkForAppropriateObjOrSub(srl, 1)
+            found_subject_text = Helper.merge_tokens(found_subject_tokens)
+            found_object_text = Helper.merge_tokens(found_object_tokens)
+            
+            if (found_subject_text == '') or (found_object_text == '') or (found_subject_text == found_object_text):
+                continue
+            
+            is_same_cluster = False
+            for tok1 in subject:
+                for tok2 in found_subject_tokens:
+                    if self._is_in_same_cluster(tok1, tok2):
+                        is_same_cluster = True
+                        break
+
+            # if the two subject are in cluster, yield "yes" question
+            if is_same_cluster:
+                extra_field = ''
+                answer = 'yes'
+                # Add sentence 2 to the extra_field
+                sent_srl_tokens2 = []
+                for k, v in srl.items():
+                    is_token_in_subject = False
+                    for tok_v in v:
+                        if tok_v in found_subject_tokens:
+                            is_token_in_subject = True
+                    if not is_token_in_subject:
+                        simplified_v = Helper.simplify_dependencies(v)
+                        sent_srl_tokens2.extend(simplified_v)
+                sent_srl_tokens2 = sorted(sent_srl_tokens2, key=lambda x: x.idx)
+                extra_field = Helper.merge_tokens(sent_srl_tokens2)
+                extra_field = 'and ' + extra_field
+                outputs.append((extra_field, answer))
+            # Check if the two subject are not in cluster, yield "no" question and correct the answer
+            else:
+                extra_field = ''
+                answer = 'no'
+                # Add sentence 2 to the extra_field
+                sent_srl_tokens2 = []
+                for k, v in srl.items():
+                    if k in ['ARGM-MNR']:
+                        continue
+                    is_token_in_subject = False
+                    for tok_v in v:
+                        if tok_v in found_subject_tokens:
+                            is_token_in_subject = True
+                    if not is_token_in_subject:
+                        simplified_v = Helper.simplify_dependencies(v)
+                        sent_srl_tokens2.extend(simplified_v)
+                sent_srl_tokens2 = sorted(sent_srl_tokens2, key=lambda x: x.idx)
+                extra_field = Helper.merge_tokens(sent_srl_tokens2)
+                resolved_extra_field = self._resolve_antecedent(sent_srl_tokens2)
+                resolved_original_subject = self._resolve_antecedent(subject.copy())
+                original_subject = Helper.merge_tokens(resolved_original_subject)
+                resolve_new_subject = self._resolve_antecedent(found_subject_tokens.copy())
+                resolved_extra_field = Helper.merge_tokens(resolved_extra_field)
+                answer = f"No, it is the {Helper.merge_tokens(resolve_new_subject)} that {resolved_extra_field}."
+                extra_field = ', and ' + resolved_extra_field
+                outputs.append((extra_field, answer))
+        return outputs
+    
     def constructQuestion(
             self, 
             deconstruction_results: List[QDeconstructionResult], 
-            verbose: bool = False):
+            limit: int = 100,
+            selection_method: str = 'random',
+            type_name: str = None,
+            verbose: bool = False,):
         qa_pairs = []
         for deconstruction_result in deconstruction_results:
             if verbose:
@@ -301,7 +425,7 @@ class QConstructor:
                         aux_text = predArr[0].text
                         predArr.pop(firstFoundVerbIndex)
                         predicate_strs = Helper.merge_tokens(predArr).split()
-                if numOfVerbs == 0 and len(predArr) == 1 and deconstruction_result.type != 'attr':
+                if numOfVerbs == 0 and len(predArr) == 1:
                     mainVerb = predArr[0].text
                     if utils.lemmatizeVerb(predArr[0].text) == predArr[0].text:
                         aux_text = 'do'
@@ -316,28 +440,22 @@ class QConstructor:
                         if not isinstance(predArr, list):
                             predArr = list(predArr)
                         predicate_strs = Helper.merge_tokens(predArr).split()
-                    
-            if having_word_and: 
-                predicate_strs.insert(0, '')
+            else: # having_word_and (e.g. 'He finds and eats the apple'), TODO: handle more complex cases
+                pass
+                
             isQuestionMarkExist = False
             verbRemainingPart = Helper.merge_strs(predicate_strs)
             question = ''
             type_text = deconstruction_result.type
             # Replace by the antecedent of answer
-            resolved_answer = deconstruction_result.key_answer.copy()
-            for idx in range(len(deconstruction_result.key_answer)):
-                resolved_answer = self._replace_antecedent(deconstruction_result.key_answer[idx], resolved_answer)
+            resolved_answer = self._resolve_antecedent(deconstruction_result.key_answer.copy())
             answer = Helper.merge_tokens(resolved_answer)
             # Replace by the antecedent of object
-            resolved_object = deconstruction_result.object.copy()
-            for idx in range(len(deconstruction_result.object)):
-                resolved_object = self._replace_antecedent(deconstruction_result.object[idx], resolved_object)
+            resolved_object = self._resolve_antecedent(deconstruction_result.object.copy())
             object_text = Helper.merge_tokens(resolved_object)
             
             # Replace by the antecedent of extra field
-            resolved_extra = deconstruction_result.extra_field.copy()
-            for idx in range(len(deconstruction_result.extra_field)):
-                resolved_extra = self._replace_antecedent(deconstruction_result.extra_field[idx], resolved_extra)
+            resolved_extra = self._resolve_antecedent(deconstruction_result.extra_field.copy())
             extra_text = Helper.merge_tokens(resolved_extra)
             if type_text != 'direct':
                 for subject_text in self._enhance_subject(deconstruction_result.subject):
@@ -355,8 +473,6 @@ class QConstructor:
                                 whQuestion = 'Who '
                                 break
                         question = whQuestion + aux_text + ' ' + negativePart + ' ' + subject_text + ' ' + verbRemainingPart  + ' ' + extra_text
-                    elif type_text == 'attr_question':
-                        question = 'How would you describe ' + object_text
                     elif type_text == 'acomp_question':
                         isQuestionMarkExist = True  
                         question = 'Indicate characteristics of ' + utils.getObjectPronun(subject_text)
@@ -369,10 +485,16 @@ class QConstructor:
                     elif type_text == 'srl_causal':
                         question = 'Why '+ aux_text + ' ' + negativePart + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
                     elif type_text == 'srl_purpose':
-                        question = 'What '+ aux_text + negativePart + ' the purpose of ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
+                        question = 'What '+ aux_text + negativePart + ' the purpose of that ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
                     elif type_text == 'srl_manner':
                         question = 'How '+ aux_text + ' ' + negativePart + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
                     elif type_text == 'srl_temporal':
+                        # defind question word based on the answer (three types: when, how long, how often)
+                        question_word = 'When '
+                        if 'for' in answer or 'since' in answer:
+                            question_word = 'How long '
+                        elif 'every' in answer or 'each' in answer:
+                            question_word = 'How often '
                         question = 'When '+ aux_text + ' ' + negativePart + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
                     elif type_text == 'srl_locative':
                         question = 'Where '+aux_text + ' ' + negativePart + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
@@ -410,12 +532,40 @@ class QConstructor:
                             'type': type_text,
                         })
             else: # type_text == 'direct':
+                # Enhance the question by adding multiple SRLs
+                extra_fields = self._enhance_direct_question_by_multiple_srls(deconstruction_result.subject)
+                for extra_field, answer in extra_fields:
+                    aux_text = aux_text[:1].upper() + aux_text[1:]
+                    if object_text.endswith('.'):
+                        object_text = object_text[:-1]
+                    resolved_subject = self._resolve_antecedent(deconstruction_result.subject.copy())
+                    subject_text = Helper.merge_tokens(resolved_subject)
+                    question = aux_text + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_field
+                    words = question.split()
+                    formattedQuestion = ''
+                    for word_idx, word in enumerate(words):
+                        if word in ['He', 'She', 'It', 'They', 'We', 'In'] and word_idx != 0:
+                            word = word.lower()
+                        if word in ['.', ',', '?', '!', ':', ';'] or word == "'s":
+                            formattedQuestion = formattedQuestion + word
+                        else:
+                            formattedQuestion = formattedQuestion + ' ' + word
+                    if formattedQuestion != '':
+                        if isQuestionMarkExist == False:
+                            formattedQuestion = formattedQuestion + '?'
+                        else: 
+                            formattedQuestion = formattedQuestion + '.'
+                        if verbose:
+                            print('\tGenerate final question: ', formattedQuestion)
+                        qa_pairs.append({
+                            'question': formattedQuestion,
+                            'answer': answer,
+                            'type': 'direct_with_multiple_srls',
+                        })
                 aux_text= aux_text[:1].upper() + aux_text[1:]
                 if object_text.endswith('.'):
                     object_text = object_text[:-1]
-                resolved_subject = deconstruction_result.subject.copy()
-                for idx in range(len(deconstruction_result.subject)):
-                    resolved_subject = self._replace_antecedent(deconstruction_result.subject[idx], resolved_subject)
+                resolved_subject = self._resolve_antecedent(deconstruction_result.subject.copy())
                 subject_text = Helper.merge_tokens(resolved_subject)
                 question = aux_text + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
                 answer = 'Yes' if not negativePart else 'No'
@@ -429,7 +579,21 @@ class QConstructor:
                         formattedQuestion = formattedQuestion + word
                     else:
                         formattedQuestion = formattedQuestion + ' ' + word
-                for ans in answers:
+                if answers:
+                    for ans in answers:
+                        if formattedQuestion != '':
+                            if isQuestionMarkExist == False:
+                                formattedQuestion = formattedQuestion + '?'
+                            else: 
+                                formattedQuestion = formattedQuestion + '.'
+                            if verbose:
+                                print('\tGenerate final question: ', formattedQuestion)
+                            qa_pairs.append({
+                                'question': formattedQuestion,
+                                'answer': ans,
+                                'type': type_text,
+                            })
+                else:
                     if formattedQuestion != '':
                         if isQuestionMarkExist == False:
                             formattedQuestion = formattedQuestion + '?'
@@ -439,7 +603,7 @@ class QConstructor:
                             print('\tGenerate final question: ', formattedQuestion)
                         qa_pairs.append({
                             'question': formattedQuestion,
-                            'answer': ans,
+                            'answer': answer,
                             'type': type_text,
                         })
 
@@ -454,23 +618,36 @@ class QConstructor:
                 unique_qa_pairs.append(qa_pairs[i])
 
         unique_qa_pairs.sort(key = lambda s: len(s['question']), reverse=True)
-        # Paraphrase the questions and answers
+        if selection_method == 'random':
+            import random
+            random.shuffle(unique_qa_pairs)
+        elif selection_method == 'only_type':
+            if 'type_name' not in locals():
+                raise ValueError('Type name is not specified')
+            unique_qa_pairs = [qa_pair for qa_pair in unique_qa_pairs if qa_pair['type'].startswith(type_name)]
+        elif selection_method == 'longest':
+            unique_qa_pairs.sort(key = lambda s: len(s['question']), reverse=True)
+        elif selection_method == 'shortest':
+            unique_qa_pairs.sort(key = lambda s: len(s['question']), reverse=False)
+        elif selection_method == 'alphabetical':
+            unique_qa_pairs.sort(key = lambda s: s['question'])
+        elif selection_method == 'reverse_alphabetical':
+            unique_qa_pairs.sort(key = lambda s: s['question'], reverse=True)
+        elif selection_method == 'answer_length':
+            unique_qa_pairs.sort(key = lambda s: len(s['answer']))
+        elif selection_method == 'reverse_answer_length':
+            unique_qa_pairs.sort(key = lambda s: len(s['answer']), reverse=True)
+        else:
+            raise ValueError('Invalid selection method')
+        
+        if limit > 0:
+            unique_qa_pairs = unique_qa_pairs[:limit]
+
         result = []
         for qa_pair in tqdm(unique_qa_pairs, total=len(unique_qa_pairs), desc='Paraphrasing QA pairs'):
-            paraphrased_questions = paraphrase(qa_pair['question'])[0]
-            if type == 'direct':
-                paraphrased_answer = paraphrase(qa_pair['answer'])[0]
-                result.append({
-                    'original': qa_pair['question'],
-                    'question': paraphrased_questions,
-                    'answer': paraphrased_answer,
-                    'type': qa_pair['type'],
-                })
-            else:
-                result.append({
-                    'original': qa_pair['question'],
-                    'question': paraphrased_questions,
-                    'answer': qa_pair['answer'],
-                    'type': qa_pair['type'],
-                })        
+            result.append({
+                'question': qa_pair['question'],
+                'answer': qa_pair['answer'],
+                'type': qa_pair['type'],
+            })        
         return result

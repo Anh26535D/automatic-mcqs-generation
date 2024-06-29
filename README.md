@@ -40,10 +40,17 @@
     make run_dg
     ```
 
-3. **Open another terminal and run the main app:**
+3. **Open a new terminal and run the t5 question generation module:**
     ```
-    make run_app
+    make run_t5qg
     ```
 
-4. **Access the application:**
-   Open your web browser and go to [http://localhost:5002](http://localhost:5002).
+4. **Open a new terminal and run the paraphraser module:**
+    ```
+    make run_paraphrase
+    ```
+
+5. **Generate QA**
+    ```
+    python main.py
+    ```
