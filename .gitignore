@@ -1,4 +1,5 @@
 models/
+t5_qa_gen/best-checkpoint-qg/
 
 # zip file
 *.zip

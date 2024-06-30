@@ -17,7 +17,6 @@ cur_dir = os.getcwd()
 
 CONTRACTIONS_PATH = os.path.join(cur_dir, 'utility_files', 'contractions.json')
 
-DISTRACTOR_MODEL_PATH = 'voidful/bart-distractor-generation-both'
 SRL_MODEL_PATH = 'https://storage.googleapis.com/allennlp-public-models/structured-prediction-srl-bert.2020.12.15.tar.gz'
 
 contractions_dict = json.loads(open(CONTRACTIONS_PATH).read())
@@ -126,10 +125,10 @@ if __name__ == "__main__":
     The Gavioes people of Brazil use the forest, but they protect it as well. 
     They find the Brazil nuts which grow on the forest trees.
     '''
-    context = """
-     The Lobund Institute grew out of pioneering research in germ-free-life which began in 1928. This area of research originated in a question posed by Pasteur as to whether animal life was possible without bacteria. Though others had taken up this idea, their research was short lived and inconclusive. Lobund was the first research organization to answer definitively, that such life is possible and that it can be prolonged through generations. But the objective was not merely to answer Pasteur's question but also to produce the germ free animal as a new tool for biological and medical research. This objective was reached and for years Lobund was a unique center for the study and production of germ free animals and for their use in biological and medical investigations. Today the work has spread to other universities. In the beginning it was under the Department of Biology and a program leading to the master's degree accompanied the research program. In the 1940s Lobund achieved independent status as a purely research organization and in 1950 was raised to the status of an Institute. In 1958 it was brought back into the Department of Biology as integral part of that department, but with its own program leading to the degree of PhD in Gnotobiotics.
-    
-    """
+    context = '''
+    They cut down the forest to make roads. 
+    They made a forest park which tourists pay to visit. 
+    '''
     context = clean_text(context)
     # from helper import Helper
     # Helper.visualize_dependencies(context)

@@ -36,7 +36,7 @@ t5model = T5ForConditionalGeneration.from_pretrained(
     MODEL_NAME,
     return_dict=True
 )
-peft_path = './best-checkpoint-modif.ckpt'
+peft_path = './best-checkpoint-modif'
 peft_model = PeftModel.from_pretrained(t5model, peft_path).to(device)
 peft_model.to(device)
 

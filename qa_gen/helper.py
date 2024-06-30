@@ -169,7 +169,7 @@ class Helper:
     
     def simplify_dependencies(original_tokens: List[spacy.tokens.Token]) -> List[spacy.tokens.Token]:
         """
-        Simplify dependencies by removing the relative clause
+        Simplify dependencies by removing the relative clause if it is not in relative clause itself
         """
         output_dependencies = [tok for tok in original_tokens]
         def remove_all_children(token):
@@ -179,7 +179,7 @@ class Helper:
                     output_dependencies.remove(child)
                 
         for token in original_tokens:
-            if token.dep_ == "relcl":
+            if token.dep_ == "relcl" and token.head in original_tokens:
                 remove_all_children(token)
                 output_dependencies.remove(token)
         return output_dependencies

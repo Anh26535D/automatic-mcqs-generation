@@ -35,12 +35,12 @@ tokenizer, model = load_model_and_tokenizer()
 
 def paraphrase(
     question,
-    num_beams=5,
+    num_beams=10,
     num_beam_groups=5,
     num_return_sequences=1,
     repetition_penalty=5.0,
-    diversity_penalty=3.0,
-    no_repeat_ngram_size=2,
+    diversity_penalty=2.0,
+    no_repeat_ngram_size=3,
     max_length=128
 ):
     input_ids = tokenizer(

@@ -67,35 +67,27 @@ class QConstructor:
                 if token in span:
                     return cluster[0], span
         return [token], [token]
-
-
-    def _replace_antecedent(self, token: Token, original_tokens: List[Token]) -> List[Token]:
-        antecedent_tokens, span_tokens = self._get_antecedent(token)
-        modified_tokens = []
-        replaced = False
-        for token in original_tokens:
-            if token not in span_tokens:
-                modified_tokens.append(token)
-            elif not replaced:
-                modified_tokens.extend(antecedent_tokens)
-                replaced = True
-        return modified_tokens
     
-    def _resolve_antecedent(self, tokens: List[Token]) -> List[Token]:
+    def _resolve_coref_within_cluster(self, tokens: List[Token]) -> List[Token]:
         resolved_tokens = []
-        previous_resolved_tokens = []
-        for token in tokens:
-            antecedent_tokens, _ = self._get_antecedent(token)
-            # just replace if token is not in the antecedent itself
-            if token in antecedent_tokens:
-                resolved_tokens.append(token)
+        i = 0
+        prev_token = None
+        while i < len(tokens):
+            antecedent, span = self._get_antecedent(tokens[i])
+            if prev_token not in span:
+                resolved_tokens.extend(antecedent)
+                prev_token = tokens[i]
+                i = i + len(span)
             else:
-                is_resolved_before = False
-                if token in previous_resolved_tokens:
-                    is_resolved_before = True
-                if not is_resolved_before:
-                    resolved_tokens.extend(antecedent_tokens)
-                    previous_resolved_tokens = [token for token in antecedent_tokens]
+                resolved_tokens.append(tokens[i])
+                prev_token = tokens[i]
+                i = i + 1
+        return resolved_tokens        
+    
+    def _resolve_coref(self, tokens: List[Token], num_try: int = 2) -> List[Token]:     
+        resolved_tokens = self._resolve_coref_within_cluster(tokens)   
+        for i in range(num_try-1):
+            resolved_tokens = self._resolve_coref_within_cluster(resolved_tokens)
         return resolved_tokens
         
     
@@ -111,46 +103,27 @@ class QConstructor:
             return outputs
         
         for tok in subject_input:
-            found_cluster_idx = -1
             for idx, cluster in enumerate(self.clusters):
                 for span in cluster:
                     if tok in span:
-                        found_cluster_idx = idx
-                        break
-            if found_cluster_idx != -1:
-                possible_span_indices = []
-                for idx, span in enumerate(self.clusters[found_cluster_idx]):
-                    if span[0].sent.start < tok.sent.start: # only consider the previous sentences
-                        possible_span_indices.append(idx)
-                if len(possible_span_indices) > 0:
-                    sorted_possible_span_indices = sorted(possible_span_indices, key=lambda x: self.clusters[found_cluster_idx][x][0].sent.start)
-                    possible_srl_indices = []
-                    # for each span, loop through the srls to extract the srl sentence such that span has enrolled in
-                    for idx in sorted_possible_span_indices:
-                        for srl_idx, srl in enumerate(self.srls):
-                            if 'V' not in self.srls[srl_idx]:
-                                continue
-                            subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
-                            if len(subject_tokens) > 0 and any([(tok in subject_tokens) for tok in self.clusters[found_cluster_idx][idx]]):
-                                if srl_idx not in possible_srl_indices:
-                                    possible_srl_indices.append(srl_idx)
-                    if len(possible_srl_indices) > 0:
-                        srl_idx = possible_srl_indices[0]
-                        sent_srl_tokens = []
-                        subject_tokens = Helper.checkForAppropriateObjOrSub(self.srls[srl_idx], 0)
-                        for k, v in self.srls[srl_idx].items():
-                            is_token_in_subject = False
-                            for tok_v in v:
-                                if tok_v in subject_tokens:
-                                    is_token_in_subject = True
-                            if not is_token_in_subject:
-                                simplified_v = Helper.simplify_dependencies(v)
-                                sent_srl_tokens.extend(simplified_v)
-                        sorted_sent_srl_tokens = sorted(sent_srl_tokens, key=lambda x: x.idx)
-                        srl_text = 'the one that ' + Helper.merge_tokens(sorted_sent_srl_tokens)
-                        if self.enhance_level > 1:
-                            max_srls = min(self.enhance_level, len(possible_srl_indices) - 1)
-                            for srl_idx in possible_srl_indices[:max_srls]:
+                        possible_span_indices = []
+                        for idx, span in enumerate(cluster):
+                            if span[0].sent.start_char < tok.sent.start_char: # only consider the previous sentences
+                                possible_span_indices.append(idx)
+                        if len(possible_span_indices) > 0:
+                            sorted_possible_span_indices = sorted(possible_span_indices, key=lambda x: cluster[x][0].sent.start)
+                            possible_srl_indices = []
+                            # for each span, loop through the srls to extract the srl sentence such that span has enrolled in
+                            for idx in sorted_possible_span_indices:
+                                for srl_idx, srl in enumerate(self.srls):
+                                    if 'V' not in self.srls[srl_idx]:
+                                        continue
+                                    subject_tokens = Helper.checkForAppropriateObjOrSub(srl, 0)
+                                    if len(subject_tokens) > 0 and any([(tok in subject_tokens) for tok in cluster[idx]]):
+                                        if srl_idx not in possible_srl_indices:
+                                            possible_srl_indices.append(srl_idx)
+                            if len(possible_srl_indices) > 0:
+                                srl_idx = possible_srl_indices[0]
                                 sent_srl_tokens = []
                                 subject_tokens = Helper.checkForAppropriateObjOrSub(self.srls[srl_idx], 0)
                                 for k, v in self.srls[srl_idx].items():
@@ -158,13 +131,28 @@ class QConstructor:
                                     for tok_v in v:
                                         if tok_v in subject_tokens:
                                             is_token_in_subject = True
-                                            break
                                     if not is_token_in_subject:
                                         simplified_v = Helper.simplify_dependencies(v)
                                         sent_srl_tokens.extend(simplified_v)
                                 sorted_sent_srl_tokens = sorted(sent_srl_tokens, key=lambda x: x.idx)
-                                srl_text = srl_text + ' and ' + Helper.merge_tokens(sorted_sent_srl_tokens)
-                        outputs.append(srl_text)
+                                srl_text = 'the one that ' + Helper.merge_tokens(sorted_sent_srl_tokens)
+                                if self.enhance_level > 1:
+                                    max_srls = min(self.enhance_level, len(possible_srl_indices) - 1)
+                                    for srl_idx in possible_srl_indices[1:max_srls]:
+                                        sent_srl_tokens = []
+                                        subject_tokens = Helper.checkForAppropriateObjOrSub(self.srls[srl_idx], 0)
+                                        for k, v in self.srls[srl_idx].items():
+                                            is_token_in_subject = False
+                                            for tok_v in v:
+                                                if tok_v in subject_tokens:
+                                                    is_token_in_subject = True
+                                                    break
+                                            if not is_token_in_subject:
+                                                simplified_v = Helper.simplify_dependencies(v)
+                                                sent_srl_tokens.extend(simplified_v)
+                                        sorted_sent_srl_tokens = sorted(sent_srl_tokens, key=lambda x: x.idx)
+                                        srl_text = srl_text + ' and ' + Helper.merge_tokens(sorted_sent_srl_tokens)
+                                outputs.append(srl_text)
         return outputs
     
     
@@ -210,7 +198,7 @@ class QConstructor:
                                 if srl_idx not in possible_srl_indices:
                                     possible_srl_indices.append(srl_idx)
                     # Get unique srls in different sentences
-                    srl_indices = possible_srl_indices[::-1]
+                    srl_indices = possible_srl_indices.copy()
                             
                     if len(srl_indices) > 0:
                         srl_text = answer_input + ', '
@@ -301,28 +289,32 @@ class QConstructor:
             else:
                 extra_field = ''
                 answer = 'no'
-                # Add sentence 2 to the extra_field
                 sent_srl_tokens2 = []
-                for k, v in srl.items():
-                    if k in ['ARGM-MNR']:
-                        continue
-                    is_token_in_subject = False
-                    for tok_v in v:
-                        if tok_v in found_subject_tokens:
-                            is_token_in_subject = True
-                    if not is_token_in_subject:
+                
+                # check if srl can be a clause
+                subject2 = Helper.checkForAppropriateObjOrSub(srl, 0)
+                object2 = Helper.checkForAppropriateObjOrSub(srl, 1)
+                if len(subject2) != 0 and len(object2) != 0:
+                    # Add sentence 2 to the extra_field
+                    verb_tokens = srl['V']
+                    for k, v in srl.items():
+                        if k.startswith('R-ARG'):
+                            continue
                         simplified_v = Helper.simplify_dependencies(v)
                         sent_srl_tokens2.extend(simplified_v)
-                sent_srl_tokens2 = sorted(sent_srl_tokens2, key=lambda x: x.idx)
-                extra_field = Helper.merge_tokens(sent_srl_tokens2)
-                resolved_extra_field = self._resolve_antecedent(sent_srl_tokens2)
-                resolved_original_subject = self._resolve_antecedent(subject.copy())
-                original_subject = Helper.merge_tokens(resolved_original_subject)
-                resolve_new_subject = self._resolve_antecedent(found_subject_tokens.copy())
-                resolved_extra_field = Helper.merge_tokens(resolved_extra_field)
-                answer = f"No, it is the {Helper.merge_tokens(resolve_new_subject)} that {resolved_extra_field}."
-                extra_field = ', and ' + resolved_extra_field
-                outputs.append((extra_field, answer))
+                    sent_srl_tokens2 = [tok for tok in sent_srl_tokens2 if tok not in subject2 and tok not in object2 and tok not in verb_tokens]
+                    sent_srl_tokens2 = sorted(sent_srl_tokens2, key=lambda x: x.idx)
+                    sent_srl_tokens2 = verb_tokens + object2 + sent_srl_tokens2
+                    
+                    extra_field = Helper.merge_tokens(sent_srl_tokens2)
+                    resolved_extra_field = self._resolve_coref(sent_srl_tokens2)
+                    resolved_original_subject = self._resolve_coref(subject.copy())
+                    original_subject = Helper.merge_tokens(resolved_original_subject)
+                    resolve_new_subject = self._resolve_coref(found_subject_tokens.copy())
+                    resolved_extra_field = Helper.merge_tokens(resolved_extra_field)
+                    answer = f"No, not {original_subject}, but rather {Helper.merge_tokens(resolve_new_subject)} {resolved_extra_field}."
+                    extra_field = ', and ' + resolved_extra_field
+                    outputs.append((extra_field, answer))
         return outputs
     
     def constructQuestion(
@@ -448,14 +440,14 @@ class QConstructor:
             question = ''
             type_text = deconstruction_result.type
             # Replace by the antecedent of answer
-            resolved_answer = self._resolve_antecedent(deconstruction_result.key_answer.copy())
+            resolved_answer = self._resolve_coref(deconstruction_result.key_answer.copy())
             answer = Helper.merge_tokens(resolved_answer)
             # Replace by the antecedent of object
-            resolved_object = self._resolve_antecedent(deconstruction_result.object.copy())
+            resolved_object = self._resolve_coref(deconstruction_result.object.copy())
             object_text = Helper.merge_tokens(resolved_object)
             
             # Replace by the antecedent of extra field
-            resolved_extra = self._resolve_antecedent(deconstruction_result.extra_field.copy())
+            resolved_extra = self._resolve_coref(deconstruction_result.extra_field.copy())
             extra_text = Helper.merge_tokens(resolved_extra)
             if type_text != 'direct':
                 for subject_text in self._enhance_subject(deconstruction_result.subject):
@@ -538,9 +530,9 @@ class QConstructor:
                     aux_text = aux_text[:1].upper() + aux_text[1:]
                     if object_text.endswith('.'):
                         object_text = object_text[:-1]
-                    resolved_subject = self._resolve_antecedent(deconstruction_result.subject.copy())
+                    resolved_subject = self._resolve_coref(deconstruction_result.subject.copy())
                     subject_text = Helper.merge_tokens(resolved_subject)
-                    question = aux_text + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_field
+                    question = aux_text + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text + ' ' + extra_field
                     words = question.split()
                     formattedQuestion = ''
                     for word_idx, word in enumerate(words):
@@ -565,7 +557,7 @@ class QConstructor:
                 aux_text= aux_text[:1].upper() + aux_text[1:]
                 if object_text.endswith('.'):
                     object_text = object_text[:-1]
-                resolved_subject = self._resolve_antecedent(deconstruction_result.subject.copy())
+                resolved_subject = self._resolve_coref(deconstruction_result.subject.copy())
                 subject_text = Helper.merge_tokens(resolved_subject)
                 question = aux_text + ' ' + subject_text + ' ' + verbRemainingPart + ' ' + object_text  + ' ' + extra_text
                 answer = 'Yes' if not negativePart else 'No'

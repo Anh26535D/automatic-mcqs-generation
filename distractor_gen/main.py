@@ -36,7 +36,7 @@ t5model = T5ForConditionalGeneration.from_pretrained(
     MODEL_NAME,
     return_dict=True
 )
-peft_path = './best-checkpoint-modif.ckpt'
+peft_path = './best-checkpoint-modif'
 peft_model = PeftModel.from_pretrained(t5model, peft_path).to(device)
 peft_model.to(device)
 
@@ -67,7 +67,9 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
         input_ids=source_encoding['input_ids'].to(device),
         attention_mask=source_encoding['attention_mask'].to(device),
         num_beams=20,
-        temperature=1.2,
+        # num_beam_groups=10,
+        # diversity_penalty=3.0,
+        temperature=1.5,
         repetition_penalty=2.5,
         top_p=0.95,
         max_length=TARGET_MAX_TOKEN_LEN,
@@ -108,6 +110,9 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
     marks = ['.', ',', '?', '!', ':', ';']
     formatted_options = [option if option[-1] not in marks else option[:-1] for option in formatted_options]
     
+    for option in formatted_options:
+        print(option)
+    
     # Remove options that have high similarity with the answer (above 0.25 percentile)
     lst_option_embeddings = model.encode(formatted_options, convert_to_tensor=True)
     answer_embedding = model.encode([answer])
@@ -121,7 +126,7 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
             if i != j:
                 semantic_similarity = cosine_sim(lst_option_embeddings[i], lst_option_embeddings[j]).item()
                 token_similarity = sentence_bleu([formatted_options[i].split()], formatted_options[j].split(), smoothing_function=smoothing_function)
-                if semantic_similarity > 0.95 or token_similarity > 0.95:
+                if semantic_similarity > 0.95:
                     if j not in removed_option_indices and i not in removed_option_indices:
                         removed_option_indices.append(j)
     selected_option_indices = [i for i in selected_option_indices if i not in removed_option_indices]
@@ -138,7 +143,7 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
                     cnt += 1
                     token_similarity = sentence_bleu([formatted_options[i].split()], formatted_options[j].split(), smoothing_function=smoothing_function)
                     semantic_similarity = cosine_sim(lst_option_embeddings[i], lst_option_embeddings[j]).item()
-                    d2d_score = d2d_score + 1 / ((semantic_similarity + eps) + (token_similarity + eps)) 
+                    d2d_score = d2d_score + 1 / ((semantic_similarity - 0.5 + eps)) 
         d2d_score = d2d_score / cnt
         
         d2a_score = 0
@@ -147,7 +152,7 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
             cnt += 1
             token_similarity = sentence_bleu([answer.split()], formatted_options[i].split(), smoothing_function=smoothing_function)
             semantic_similarity = cosine_sim(answer_embedding, lst_option_embeddings[i]).item()
-            d2a_score = d2a_score + 1 / ((semantic_similarity + eps) + (token_similarity + eps)) 
+            d2a_score = d2a_score + 1 / ((semantic_similarity - 0.5 + eps)) 
         d2a_score = d2a_score / cnt
         
         alpha = 0.5
@@ -158,6 +163,15 @@ def generate_distractors(answer: str, context: str, question: str) -> str:
             best_com = comb
 
     return [formatted_options[i] for i in best_com]
+
+# Original Question:  
+# Original Answer: 
+# Question: Is it true that the Gavioes of Brazil cut down The Yanomami forest to construct roads?
+# A: The Yanomami forest was cleared by 45,000 people to construct roads, not the Gavioes people of Brazil.
+# B: The Yanomami forest was cleared by 45,000 people to construct roads in Brazil
+# C: The Yanomami forest was cleared by 45,000 people, not the Gavioes people
+# D: The Yanomami forest was cleared by the Gavioes people of Brazil
+# Type: direct_with_multiple_srls
 
 if __name__ == '__main__':
     context = '''
@@ -174,7 +188,7 @@ if __name__ == '__main__':
     The Gavioes people of Brazil use the forest, but they protect it as well. 
     They find and sell the Brazil nuts which grow on the forest trees.
     '''
-    question = "What was the purpose that those people built roads and airports?"
-    answer = "carry away the gold conveniently"
+    question = "Do The Gavioes people of Brazil use The Yanomami forest, and cut The Yanomami forest to make roads?"
+    answer = "No, not The Gavioes people of Brazil, but rather 45,000 people cut The Yanomami forest to make roads."
     distractors = generate_distractors(answer, context, question)
     print(distractors)
